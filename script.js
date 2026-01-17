@@ -593,7 +593,7 @@ function skipWord() {
 
   // Show skip message
   const resultMsg = document.getElementById('resultMessage');
-  resultMsg.textContent = '⏭️ Skipped';
+  resultMsg.textContent = `⏭️ Skipped - The word was: ${targetWord}`;
   resultMsg.className = 'failure';
 
   // Generate new grid after brief delay
