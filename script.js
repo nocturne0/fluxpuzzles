@@ -19,7 +19,7 @@ const LETTER_PROBABILITIES = {
 // Sum: 1.000 (based on English letter frequency)
 
 // Test dictionary (200 words)
-const dictionary = [
+const dictionary_ = [
     'CAT', 'DOG', 'BIRD', 'FISH', 'LION', 'BEAR', 'WOLF', 'DEER',
     'APPLE', 'GRAPE', 'MELON', 'PEACH', 'LEMON', 'MANGO', 'BERRY',
     'HOUSE', 'MOUSE', 'HORSE', 'SNAKE', 'TIGER', 'EAGLE', 'WHALE',
@@ -112,9 +112,9 @@ let targetWord = ''; // Store the hidden word
 let successfulWords = []; // Track successful words
 
 // Initialize with test dictionary
-dictionary_ = new Set(dictionary);
+dictionary = new Set(dictionary_);
 dictionaryLoaded = true;
-console.log(`Test dictionary loaded: ${dictionary_.size} words`);
+console.log(`Test dictionary loaded: ${dictionary.size} words`);
 
 // ===== MAIN GRID GENERATION FUNCTION =====
 // This function creates a new grid with random letters and a hidden word
