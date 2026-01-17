@@ -47,7 +47,7 @@ const dictionary = [
     'PUZZLE', 'RIDDLE', 'CLUE', 'SECRET', 'MYSTERY', 'CIPHER', 'ENIGMA'
 ];
 var dictionaries = [[]]
-for(k=1,k<32;k++) {
+for(k=1;k<32;k++) {
     if(k == 26 || k == 30) {
         dictionaries.push([])
         continue
