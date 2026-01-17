@@ -1,7 +1,6 @@
 // ===== CONFIGURATION =====
 const INITIAL_GRID_SIZE = 3;
 const INITIAL_PATH_LENGTH = 6;
-const USE_FULL_DICTIONARY = false; // Set to true to load 470k words from internet
 const DEBUG_MODE = false; // Set to true to show path controls for testing
 
 // Custom dictionary file - set the path to your .txt file (one word per line)
@@ -20,33 +19,60 @@ const LETTER_PROBABILITIES = {
 // Sum: 1.000 (based on English letter frequency)
 
 // Test dictionary (200 words)
-const testWords = [
-    'CAT', 'DOG', 'BIRD', 'FISH', 'LION', 'BEAR', 'WOLF', 'DEER',
-    'APPLE', 'GRAPE', 'MELON', 'PEACH', 'LEMON', 'MANGO', 'BERRY',
-    'HOUSE', 'MOUSE', 'HORSE', 'SNAKE', 'TIGER', 'EAGLE', 'WHALE',
-    'WATER', 'PLANT', 'STONE', 'RIVER', 'OCEAN', 'CLOUD', 'STORM',
-    'BOOK', 'TREE', 'LEAF', 'SEED', 'ROOT', 'STAR', 'MOON', 'SUN',
-    'TABLE', 'CHAIR', 'LIGHT', 'MUSIC', 'DANCE', 'PARTY', 'DREAM',
-    'PIZZA', 'BREAD', 'CHEESE', 'BACON', 'HONEY', 'SUGAR', 'CREAM',
-    'HAPPY', 'SMILE', 'LAUGH', 'PEACE', 'TRUST', 'GRACE', 'BRAVE',
-    'MAGIC', 'QUEST', 'POWER', 'SWIFT', 'BRIGHT', 'GRAND', 'SWEET',
-    'GIANT', 'QUICK', 'SHARP', 'CLEAR', 'FRESH', 'CLEAN', 'ROYAL',
-    'BEACH', 'CORAL', 'PEARL', 'SHELL', 'SANDY', 'WAVES', 'COAST',
-    'FLAME', 'BLAZE', 'SPARK', 'SMOKE', 'EMBER', 'GLOW', 'SHINE',
-    'FROST', 'CHILL', 'WINTER', 'SPRING', 'SUMMER', 'AUTUMN', 'SEASON',
-    'GARDEN', 'FLOWER', 'PETAL', 'BLOOM', 'BLOSSOM', 'MEADOW', 'FIELD',
-    'CASTLE', 'TOWER', 'THRONE', 'CROWN', 'SWORD', 'SHIELD', 'ARMOR',
-    'DRAGON', 'WIZARD', 'KNIGHT', 'PRINCE', 'PRINCESS', 'KINGDOM', 'EMPIRE',
-    'FOREST', 'JUNGLE', 'DESERT', 'MOUNTAIN', 'VALLEY', 'CANYON', 'PLAINS',
-    'PIRATE', 'SAILOR', 'CAPTAIN', 'TREASURE', 'COMPASS', 'ANCHOR', 'VOYAGE',
-    'GUITAR', 'PIANO', 'VIOLIN', 'TRUMPET', 'MELODY', 'HARMONY', 'RHYTHM',
-    'SOCCER', 'TENNIS', 'HOCKEY', 'RACING', 'SWIMMING', 'RUNNING', 'JUMPING',
-    'PURPLE', 'ORANGE', 'YELLOW', 'SILVER', 'GOLDEN', 'BRONZE', 'VIOLET',
-    'PLANET', 'COMET', 'GALAXY', 'NEBULA', 'METEOR', 'COSMOS', 'STELLAR',
-    'ROCKET', 'SPACE', 'ORBIT', 'LAUNCH', 'MISSION', 'EXPLORE', 'DISCOVER',
-    'CODING', 'LAPTOP', 'TABLET', 'SCREEN', 'BUTTON', 'CURSOR', 'MEMORY',
-    'PUZZLE', 'RIDDLE', 'CLUE', 'SECRET', 'MYSTERY', 'CIPHER', 'ENIGMA'
-];
+// const dictionary = [
+//     'CAT', 'DOG', 'BIRD', 'FISH', 'LION', 'BEAR', 'WOLF', 'DEER',
+//     'APPLE', 'GRAPE', 'MELON', 'PEACH', 'LEMON', 'MANGO', 'BERRY',
+//     'HOUSE', 'MOUSE', 'HORSE', 'SNAKE', 'TIGER', 'EAGLE', 'WHALE',
+//     'WATER', 'PLANT', 'STONE', 'RIVER', 'OCEAN', 'CLOUD', 'STORM',
+//     'BOOK', 'TREE', 'LEAF', 'SEED', 'ROOT', 'STAR', 'MOON', 'SUN',
+//     'TABLE', 'CHAIR', 'LIGHT', 'MUSIC', 'DANCE', 'PARTY', 'DREAM',
+//     'PIZZA', 'BREAD', 'CHEESE', 'BACON', 'HONEY', 'SUGAR', 'CREAM',
+//     'HAPPY', 'SMILE', 'LAUGH', 'PEACE', 'TRUST', 'GRACE', 'BRAVE',
+//     'MAGIC', 'QUEST', 'POWER', 'SWIFT', 'BRIGHT', 'GRAND', 'SWEET',
+//     'GIANT', 'QUICK', 'SHARP', 'CLEAR', 'FRESH', 'CLEAN', 'ROYAL',
+//     'BEACH', 'CORAL', 'PEARL', 'SHELL', 'SANDY', 'WAVES', 'COAST',
+//     'FLAME', 'BLAZE', 'SPARK', 'SMOKE', 'EMBER', 'GLOW', 'SHINE',
+//     'FROST', 'CHILL', 'WINTER', 'SPRING', 'SUMMER', 'AUTUMN', 'SEASON',
+//     'GARDEN', 'FLOWER', 'PETAL', 'BLOOM', 'BLOSSOM', 'MEADOW', 'FIELD',
+//     'CASTLE', 'TOWER', 'THRONE', 'CROWN', 'SWORD', 'SHIELD', 'ARMOR',
+//     'DRAGON', 'WIZARD', 'KNIGHT', 'PRINCE', 'PRINCESS', 'KINGDOM', 'EMPIRE',
+//     'FOREST', 'JUNGLE', 'DESERT', 'MOUNTAIN', 'VALLEY', 'CANYON', 'PLAINS',
+//     'PIRATE', 'SAILOR', 'CAPTAIN', 'TREASURE', 'COMPASS', 'ANCHOR', 'VOYAGE',
+//     'GUITAR', 'PIANO', 'VIOLIN', 'TRUMPET', 'MELODY', 'HARMONY', 'RHYTHM',
+//     'SOCCER', 'TENNIS', 'HOCKEY', 'RACING', 'SWIMMING', 'RUNNING', 'JUMPING',
+//     'PURPLE', 'ORANGE', 'YELLOW', 'SILVER', 'GOLDEN', 'BRONZE', 'VIOLET',
+//     'PLANET', 'COMET', 'GALAXY', 'NEBULA', 'METEOR', 'COSMOS', 'STELLAR',
+//     'ROCKET', 'SPACE', 'ORBIT', 'LAUNCH', 'MISSION', 'EXPLORE', 'DISCOVER',
+//     'CODING', 'LAPTOP', 'TABLET', 'SCREEN', 'BUTTON', 'CURSOR', 'MEMORY',
+//     'PUZZLE', 'RIDDLE', 'CLUE', 'SECRET', 'MYSTERY', 'CIPHER', 'ENIGMA'
+// ];
+var dictionaries = [[]]
+for(k=1,k<32;k++) {
+    if(k == 26 || k == 30) {
+        dictionaries.push([])
+        continue
+    }
+    let dict_ = [];
+    
+    fetch(String(k)+'.txt')
+      .then(response => {
+          if (!response.ok) {
+              throw new Error("Could not load words.txt");
+          }
+          return response.text();
+      })
+      .then(text => {
+          // Split by newlines and remove empty lines
+          dict_ = text.split(/\r?\n/).filter(Boolean);
+          console.log(dict_); // see the words in the console
+      })
+      .catch(error => {
+          console.error("Error loading dictionary:", error);
+      });
+    dictionaries.push(dict_)
+}
+alert('dictionaries done loading')
+alert(dictionaries[10][10])
 // ===== END CONFIGURATION =====
 
 // Generate a random letter based on probability distribution
@@ -86,7 +112,7 @@ let targetWord = ''; // Store the hidden word
 let successfulWords = []; // Track successful words
 
 // Initialize with test dictionary
-dictionary = new Set(testWords);
+dictionary = new Set(dictionaries[5]);
 dictionaryLoaded = true;
 console.log(`Test dictionary loaded: ${dictionary.size} words`);
 
