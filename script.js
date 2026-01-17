@@ -112,45 +112,9 @@ let targetWord = ''; // Store the hidden word
 let successfulWords = []; // Track successful words
 
 // Initialize with test dictionary
-dictionary = new Set(dictionary);
+dictionary_ = new Set(dictionary);
 dictionaryLoaded = true;
-console.log(`Test dictionary loaded: ${dictionary.size} words`);
-
-// Load dictionary on page load (optional - can load full dictionary later)
-async function loadDictionary() {
-    try {
-        const response = await fetch('https://cdn.jsdelivr.net/gh/dwyl/english-words@master/words_alpha.txt');
-        const text = await response.text();
-        const words = text.split('\n').map(word => word.trim().toUpperCase()).filter(word => word.length > 0);
-        dictionary = new Set(words);
-        dictionaryLoaded = true;
-        console.log(`Full dictionary loaded: ${dictionary.size} words`);
-    } catch (error) {
-        console.error('Failed to load full dictionary, using test dictionary:', error);
-    }
-}
-
-// Load custom dictionary from file
-async function loadCustomDictionary(filePath) {
-    try {
-        const response = await fetch(filePath);
-        const text = await response.text();
-        const words = text.split('\n').map(word => word.trim().toUpperCase()).filter(word => word.length > 0);
-        dictionary = new Set(words);
-        dictionaryLoaded = true;
-        console.log(`Custom dictionary loaded from ${filePath}: ${dictionary.size} words`);
-    } catch (error) {
-        console.error('Failed to load custom dictionary:', error);
-        console.log('Falling back to test dictionary');
-    }
-}
-
-// Load full dictionary if enabled
-if (USE_FULL_DICTIONARY) {
-    loadDictionary();
-} else if (CUSTOM_DICTIONARY_FILE) {
-    loadCustomDictionary(CUSTOM_DICTIONARY_FILE);
-}
+console.log(`Test dictionary loaded: ${dictionary_.size} words`);
 
 // ===== MAIN GRID GENERATION FUNCTION =====
 // This function creates a new grid with random letters and a hidden word
