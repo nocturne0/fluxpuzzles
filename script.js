@@ -96,6 +96,14 @@ var sizes = {
     }
 }
 
+document.getElementById("wordInput").addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault(); // optional: stops form submission
+        console.log("Enter was pressed!");
+        checkWord(document.getElementById("wordInput").value)
+    }
+});
+
 var dictionaries = [[]]
 for(let k=1;k<32;k++) {
     if(k == 26 || k == 30) {
