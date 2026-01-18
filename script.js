@@ -462,6 +462,7 @@ document.addEventListener('mouseup', () => {
 document.addEventListener('mouseleave', (e) => {
     if (isSelecting && e.target.classList.contains('grid')) {
         endSelection();
+        alert('left grid')
     }
 });
 
