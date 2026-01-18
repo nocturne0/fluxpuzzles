@@ -216,7 +216,12 @@ function generateGrid() {
         cell.addEventListener('mousedown', startSelection);
         cell.addEventListener('mouseenter', continueSelection);
         cell.addEventListener('mouseup', endSelection);
-        
+        cell.addEventListener('mouseleave', (e) => {
+            // End selection if we leave the grid area
+            if (isSelecting && !e.relatedTarget?.classList?.contains('cell')) {
+                endSelection(e);
+            }
+        });
         grid.appendChild(cell);
     }
     
@@ -451,6 +456,12 @@ function clearUserSelection() {
 document.addEventListener('mouseup', () => {
     if (isSelecting) {
         isSelecting = false;
+    }
+});
+// End selection when mouse leaves the grid
+document.addEventListener('mouseleave', (e) => {
+    if (isSelecting && e.target.classList.contains('grid')) {
+        endSelection();
     }
 });
 
