@@ -130,11 +130,11 @@ for (let k = 0; k < kmax; k++) {
         dictionaries[k] = []
     }
     else {
+        let path_ = String(k) + ".txt"
+        if(dict_used == 1) {
+            path_ = String(k) + "CSW.txt"
+        }
         loadPromises.push(
-            var path_ = String(k) + ".txt"
-            if(dict_used == 1) {
-                path_ = String(k) + "CSW.txt"
-            }
             fetch(path_)
                 .then(r => {
                     if (!r.ok) throw new Error(`Failed to load ${k}.txt`);
