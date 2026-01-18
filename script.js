@@ -204,7 +204,7 @@ var grid_size = INITIAL_GRID_SIZE;
 let currentPath = null;
 let pathVisible = false;
 let dictionary = new Set();
-let gridLetters = []; // Store current grid letters
+var gridLetters = []; // Store current grid letters
 
 // User selection state
 let isSelecting = false;
@@ -377,6 +377,67 @@ function endSelection(e) {
     }, 200);
 }
 
+function isWordOnBoard(word) {
+    word = word.toUpperCase(); // Make case-insensitive
+    
+    if (word.length === 0) return false;
+    
+    // Find all starting positions with the first letter
+    const startPositions = [];
+    for (let i = 0; i < gridLetters.length; i++) {
+        if (gridLetters[i] === word[0]) {
+            const row = Math.floor(i / gridSize);
+            const col = i % gridSize;
+            startPositions.push({row, col, index: i});
+        }
+    }
+    
+    // Try to find the word starting from each position
+    for (const start of startPositions) {
+        if (findWordFromPosition(word, start, new Set([start.index]))) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+function findWordFromPosition(word, currentPos, visited) {
+    // Base case: found the whole word
+    if (visited.size === word.length) {
+        return true;
+    }
+    
+    const nextLetterIndex = visited.size;
+    const nextLetter = word[nextLetterIndex];
+    
+    // Check all 8 adjacent positions
+    const directions = [
+        [-1, -1], [-1, 0], [-1, 1],
+        [0, -1],           [0, 1],
+        [1, -1],  [1, 0],  [1, 1]
+    ];
+    
+    for (const [dr, dc] of directions) {
+        const newRow = currentPos.row + dr;
+        const newCol = currentPos.col + dc;
+        
+        if (newRow >= 0 && newRow < gridSize && newCol >= 0 && newCol < gridSize) {
+            const newIndex = newRow * gridSize + newCol;
+            
+            if (!visited.has(newIndex) && gridLetters[newIndex] === nextLetter) {
+                visited.add(newIndex);
+                if (findWordFromPosition(word, {row: newRow, col: newCol, index: newIndex}, visited)) {
+                    return true;
+                }
+                visited.delete(newIndex); // Backtrack
+            }
+        }
+    }
+    
+    return false;
+}
+
 function checkWord(word) {
     const resultMsg = document.getElementById('resultMessage');
     if (!/^[A-Za-z]+$/.test(word)) {
@@ -410,7 +471,7 @@ function checkWord(word) {
         }, 1500);
     } 
     // Check if it's a valid bonus word (same length or longer, in dictionary)
-    else if (word.length >= targetWord.length && dictionaries[word.length].some(item => item.toLowerCase() === word.toLowerCase())) {
+    else if (word.length >= targetWord.length && dictionaries[word.length].some(item => item.toLowerCase() === word.toLowerCase()) && isWordOnBoard(word)) {
         // Bonus!
         streak++;
         updateStreak();
