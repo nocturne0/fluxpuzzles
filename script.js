@@ -95,6 +95,7 @@ for (let k = 0; k < 32; k++) {
 Promise.all(loadPromises).then(() => {
     console.log("✅ All dictionaries loaded");
     dictionaryLoaded = true;
+    generateGrid();
 });
 // ===== END CONFIGURATION =====
 
@@ -611,7 +612,6 @@ function generateRandomPath(length) {
     return path;
 }
 
-generateGrid();
 
 function skipWord() {
   // Reset streak
