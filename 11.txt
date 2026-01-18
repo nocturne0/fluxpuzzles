@@ -24967,6 +24967,7 @@ preindicate
 preinducing
 preindulged
 preindustry
+preinferred
 preinhering
 preinitiate
 preinscribe
@@ -29518,6 +29519,7 @@ smotherable
 smouldering
 smudgeproof
 smuggleable
+snailfishes
 snailflower
 snakeblenny
 snakefishes
