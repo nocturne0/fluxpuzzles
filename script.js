@@ -216,13 +216,13 @@ function generateGrid() {
         cell.addEventListener('mousedown', startSelection);
         cell.addEventListener('mouseenter', continueSelection);
         cell.addEventListener('mouseup', endSelection);
-        cell.addEventListener('mouseleave', (e) => {
-            console.log('mouseleft')
-            // End selection if we leave the grid area
-            if (isSelecting && !e.relatedTarget?.classList?.contains('cell')) {
-                endSelection(e);
-            }
-        });
+        // cell.addEventListener('mouseleave', (e) => {
+        //     console.log('mouseleft')
+        //     // End selection if we leave the grid area
+        //     if (isSelecting && !e.relatedTarget?.classList?.contains('cell')) {
+        //         endSelection(e);
+        //     }
+        // });
         grid.appendChild(cell);
     }
     
@@ -463,7 +463,7 @@ document.addEventListener('mouseup', () => {
 document.addEventListener('mouseleave', (e) => {
     if (isSelecting && e.target.classList.contains('grid')) {
         endSelection();
-        alert('left grid')
+        console.log('left grid')
     }
 });
 
