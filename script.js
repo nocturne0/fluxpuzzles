@@ -216,7 +216,7 @@ function generateGrid() {
     if (dictionaryLoaded) {
         // const pathLength = parseInt(document.getElementById('pathLength').value) || pathlength;
         // const pathLength = pathlength
-        const pathLength = 5 + Math.floor(Math.random() * 4)
+        const pathLength = randomlength(gridSize)
         console.log(pathLength)
         currentPath = generateRandomPath(pathLength);
         if (currentPath) {
@@ -490,20 +490,18 @@ document.addEventListener('mouseup', () => {
     }
 });
 
-function getRandomWordOfLength(length) {
+function getRandomWordOfLength(l) {
     if (!dictionaryLoaded) {
         console.warn('Dictionary not loaded yet');
         return null;
     }
-    
-    const wordsOfLength = Array.from(dictionary).filter(word => word.length === length);
-    
-    if (wordsOfLength.length === 0) {
-        console.warn(`No words found with length ${length}`);
+    if (l == 26 || l == 30) {
+        console.warn(`No words found with length ${l}`);
         return null;
     }
     
-    return wordsOfLength[Math.floor(Math.random() * wordsOfLength.length)];
+    
+    return dictionaries[l][Math.floor(Math.random() * dictionaries[l].length)];
 }
 
 function placeWordOnPath(word, path) {
