@@ -45,13 +45,22 @@
             </div>
         </div>
         
-        <div class="sidebar">
-            <h3>Previous Words</h3>
-            <div id="wordHistory" style="display: flex; flex-direction: column; gap: 8px;">
-                <span style="color: #999; font-style: italic; font-size: 0.9em;">No words yet...</span>
-            </div>
-        </div>
-    </div>
+        <div class="sidebars">
+              <div class="sidebar">
+                  <h3>Previous Words</h3>
+                  <div id="wordHistory" class="word-list">
+                      <span style="color: #999; font-style: italic; font-size: 0.9em;">No words yet...</span>
+                  </div>
+              </div>
+              
+              <div class="sidebar">
+                  <h3>Skipped Words</h3>
+                  <div id="skippedHistory" class="word-list">
+                      <span style="color: #999; font-style: italic; font-size: 0.9em;">No skipped words...</span>
+                  </div>
+              </div>
+          </div>
+      </div>
     <script  src="./script.js"></script>
 
   </body>
