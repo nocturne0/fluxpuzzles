@@ -1,6 +1,7 @@
 // ===== CONFIGURATION =====
 const INITIAL_GRID_SIZE = 4;
 const DEBUG_MODE = false; // Set to true to show path controls for testing
+var dict_used = 1 // 0 -> DWYL, 1 -> CSW
 
 // Letter distribution - probability for each letter
 // Values must be between 0 and 1, and sum to 1.0
@@ -13,7 +14,7 @@ const LETTER_PROBABILITIES = {
 };
 // Sum: 1.000 (based on English letter frequency)
 
-var sizes = {
+var sizes1 = {
     2: {
         4: 1
     },
@@ -23,6 +24,7 @@ var sizes = {
         9: 2
     },
     4: {
+        10: 8,
         11: 10,
         12: 15,
         13: 10,
@@ -63,6 +65,46 @@ var sizes = {
         31: 20
     }
 }
+var sizes2 = {
+    2: {
+        4: 1
+    },
+    3: {
+        7: 5,
+        8: 3,
+        9: 2
+    },
+    4: {
+        10: 8,
+        11: 10,
+        12: 15,
+        13: 10,
+        14: 8,
+        15: 5,
+        16: 3
+    },
+    5: {
+        12: 10,
+        13: 30,
+        14: 50,
+        15: 80,
+        16: 100,
+        17: 80,
+        18: 60,
+        19: 50,
+        20: 30,
+        21: 20
+    },
+    6: {
+        16: 10,
+        17: 20,
+        18: 30,
+        19: 50,
+        20: 100,
+        21: 120
+    }
+}
+var sizelist = [sizes1,sizes2]
 
 document.getElementById("wordInput").addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
@@ -76,11 +118,23 @@ var dictionaries = []
 dictionaries.length = 32
 const loadPromises = [];
 let dictionaryLoaded = false;
-for (let k = 0; k < 32; k++) {
+let kmax = 32
+if(dict_used == 1} {
+    kmax = 22
+}
+for (let k = 0; k < kmax; k++) {
     if (k === 0 || k === 26 || k === 30) {
         dictionaries[k] = [];
-    } else {
+    } 
+    if (k == 1 && dict_used == 1) {
+        dictionaries[k] = []
+    }
+    else {
         loadPromises.push(
+            let path_ = `${k}.txt`
+            if(dict_used == 1) {
+                let path_ = `${k}CSW.txt`
+            }
             fetch(`${k}.txt`)
                 .then(r => {
                     if (!r.ok) throw new Error(`Failed to load ${k}.txt`);
@@ -155,7 +209,8 @@ let userPath = [];
 let userWord = '';
 let streak = 0;
 var targetWord = ''; // Store the hidden word
-let successfulWords = []; // Track successful words
+var successfulWords = []; // Track successful words
+var skippedWords = [];
 
 // ===== MAIN GRID GENERATION FUNCTION =====
 // This function creates a new grid with random letters and a hidden word
@@ -458,7 +513,7 @@ function skipWord() {
     
     // Show skip message with the word
     const resultMsg = document.getElementById('resultMessage');
-    resultMsg.textContent = `⏭️ Skipped - The word was: ${targetWord}`;
+    resultMsg.textContent = `⏭️ Skipped - ${targetWord}`;
     resultMsg.className = 'failure';
     
     // Generate new grid after brief delay
