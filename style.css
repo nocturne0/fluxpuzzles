@@ -33,20 +33,62 @@ body {
   max-width: 600px;
 }
 
-.sidebar {
+.sidebars {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 250px;
+  height: 80vh;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.container {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
-  padding: 30px;
+  padding: 40px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  width: 250px;
-  max-height: 80vh;
-  overflow-y: auto;
+  flex: 1;
+  max-width: 600px;
+}
+
+.sidebar {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 auto;
+}
+
+.sidebar:first-child {
+    max-height: calc(50% - 10px);
+}
+
+.sidebar:last-child {
+    max-height: calc(50% - 10px);
+    margin-top: 0;
+    position: absolute;
+    top: 50%;
+    margin-top: 10px;
 }
 
 .sidebar h3 {
-  margin: 0 0 15px 0;
-  color: #667eea;
-  font-size: 1.2em;
+    margin: 0 0 15px 0;
+    color: #667eea;
+    font-size: 1.2em;
+    flex-shrink: 0;
+}
+
+.word-list {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-height: 0;
 }
 
 h1 {
