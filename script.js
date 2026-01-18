@@ -378,7 +378,7 @@ function endSelection(e) {
 }
 
 function isWordOnBoard(word) {
-    word = word.toUpperCase(); // Make case-insensitive
+    word = word.toUpperCase();
     
     if (word.length === 0) return false;
     
@@ -386,8 +386,8 @@ function isWordOnBoard(word) {
     const startPositions = [];
     for (let i = 0; i < gridLetters.length; i++) {
         if (gridLetters[i] === word[0]) {
-            const row = Math.floor(i / gridSize);
-            const col = i % gridSize;
+            const col = Math.floor(i / grid_size);
+            const row = i % grid_size;
             startPositions.push({row, col, index: i});
         }
     }
@@ -422,15 +422,15 @@ function findWordFromPosition(word, currentPos, visited) {
         const newRow = currentPos.row + dr;
         const newCol = currentPos.col + dc;
         
-        if (newRow >= 0 && newRow < gridSize && newCol >= 0 && newCol < gridSize) {
-            const newIndex = newRow * gridSize + newCol;
+        if (newRow >= 0 && newRow < grid_size && newCol >= 0 && newCol < grid_size) {
+            const newIndex = newCol * grid_size + newRow;
             
             if (!visited.has(newIndex) && gridLetters[newIndex] === nextLetter) {
                 visited.add(newIndex);
                 if (findWordFromPosition(word, {row: newRow, col: newCol, index: newIndex}, visited)) {
                     return true;
                 }
-                visited.delete(newIndex); // Backtrack
+                visited.delete(newIndex);
             }
         }
     }
