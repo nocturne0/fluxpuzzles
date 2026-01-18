@@ -493,12 +493,12 @@ function checkWord(word) {
         if (!isWordOnBoard(word)) {
             reason = ' (not on board)';
         }
-        else if (word.length < targetWord.length) {
-            reason = ' (too short)';
-        } 
         else if (!dictionaries[word.length].some(item => item.toLowerCase() === word.toLowerCase())) {
             reason = ' (not in dictionary)';
         }
+        else if (word.length < targetWord.length) {
+            reason = ' (too short)';
+        } 
         streak = 0;
         updateStreak();
         resultMsg.textContent = '✗ Try again' + reason;
