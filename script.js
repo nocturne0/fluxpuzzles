@@ -131,11 +131,11 @@ for (let k = 0; k < kmax; k++) {
     }
     else {
         loadPromises.push(
-            let path_ = `${k}.txt`
+            let path_ = String(k) + ".txt"
             if(dict_used == 1) {
-                let path_ = `${k}CSW.txt`
+                let path_ = String(k) + "CSW.txt"
             }
-            fetch(`${k}.txt`)
+            fetch(path_)
                 .then(r => {
                     if (!r.ok) throw new Error(`Failed to load ${k}.txt`);
                     return r.text();
