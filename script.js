@@ -216,13 +216,16 @@ function generateGrid() {
         cell.addEventListener('mousedown', startSelection);
         cell.addEventListener('mouseenter', continueSelection);
         cell.addEventListener('mouseup', endSelection);
-        // cell.addEventListener('mouseleave', (e) => {
-        //     console.log('mouseleft')
-        //     // End selection if we leave the grid area
-        //     if (isSelecting && !e.relatedTarget?.classList?.contains('cell')) {
-        //         endSelection(e);
-        //     }
-        // });
+        cell.addEventListener('mouseleave', (e) => {
+        // End selection if we leave the grid area
+        // Check if the relatedTarget is null (left the document) or not a cell
+        if (isSelecting) {
+            const target = e.relatedTarget;
+            if (!target || !target.classList || !target.classList.contains('cell')) {
+                endSelection(e);
+            }
+        }
+        });
         grid.appendChild(cell);
     }
     
