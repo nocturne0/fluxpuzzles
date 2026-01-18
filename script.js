@@ -118,7 +118,6 @@ for (let k = 0; k < 32; k++) {
 }
 Promise.all(loadPromises).then(() => {
     console.log("✅ All dictionaries loaded");
-    startGame();
 });
 alert('dictionaries done loading')
 // ===== END CONFIGURATION =====
