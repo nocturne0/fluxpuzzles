@@ -1,6 +1,5 @@
 // ===== CONFIGURATION =====
 const INITIAL_GRID_SIZE = 3;
-const INITIAL_PATH_LENGTH = 6;
 const DEBUG_MODE = false; // Set to true to show path controls for testing
 
 // Custom dictionary file - set the path to your .txt file (one word per line)
@@ -49,7 +48,7 @@ const dictionary_ = [
 var sizes = {
     2: {
         4: 1
-    }
+    },
     3: {
         7: 5,
         8: 3,
@@ -172,7 +171,6 @@ const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const letters = ALPHABET; // Alias for any old code
 
 var grid_size = INITIAL_GRID_SIZE;
-var pathlength = INITIAL_PATH_LENGTH
 let currentPath = null;
 let pathVisible = false;
 let dictionary = new Set();
