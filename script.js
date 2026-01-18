@@ -72,42 +72,55 @@ document.getElementById("wordInput").addEventListener("keydown", function (event
     }
 });
 
-var dictionaries_ = []
-var dictionaries = [[]]
-for(let k=1;k<32;k++) {
-    if(k == 26 || k == 30) {
-        continue
-    }
-    else {
-        let dict_ = [];
-        fetch(String(k)+'.txt')
-          .then(response => {
-              if (!response.ok) {
-                  throw new Error("Could not load words.txt");
-              }
-              return response.text();
-          })
-          .then(text => {
-              // Split by newlines and remove empty lines
-              dict_ = text.split(/\r?\n/).filter(Boolean);
-              console.log(dict_); // see the words in the console
-              dictionaries_.push(dict_)
-          })
-          .catch(error => {
-              console.error("Error loading dictionary:", error);
-          });
+var dictionaries = []
+dictionaries.length = 32
+const loadPromises = [];
+// for(let k=0;k<32;k++) {
+//     if (k == 0 || k == 26 || k == 30) {
+//         dictionaries[k] = []
+//     }
+//     else {
+//         let dict_ = [];
+        
+//         fetch(String(k)+'.txt')
+//           .then(response => {
+//               if (!response.ok) {
+//                   throw new Error("Could not load words.txt");
+//               }
+//               return response.text();
+//           })
+//           .then(text => {
+//               // Split by newlines and remove empty lines
+//               dict_ = text.split(/\r?\n/).filter(Boolean);
+//               console.log(dict_); // see the words in the console
+//               dictionaries[k] = dict_
+//           })
+//           .catch(error => {
+//               console.error("Error loading dictionary:", error);
+//           });
+//     }
+// }
+for (let k = 0; k < 32; k++) {
+    if (k === 0 || k === 26 || k === 30) {
+        dictionaries[k] = [];
+    } else {
+        loadPromises.push(
+            fetch(`${k}.txt`)
+                .then(r => {
+                    if (!r.ok) throw new Error(`Failed to load ${k}.txt`);
+                    return r.text();
+                })
+                .then(text => {
+                    dictionaries[k] = text.split(/\r?\n/).filter(Boolean);
+                })
+        );
     }
 }
+Promise.all(loadPromises).then(() => {
+    console.log("✅ All dictionaries loaded");
+    startGame();
+});
 alert('dictionaries done loading')
-for(let k=1;k<32;k++) {
-    if(k == 26 || k == 30) {
-        dictionaries.push([])
-    }
-    else {
-        dictionaries.push(dictionaries_[0])
-        dictionaries_.shift()
-    }
-}
 // ===== END CONFIGURATION =====
 
 // Generate a random letter based on probability distribution
@@ -168,11 +181,6 @@ let userWord = '';
 let streak = 0;
 let targetWord = ''; // Store the hidden word
 let successfulWords = []; // Track successful words
-
-// Initialize with test dictionary
-dictionary = new Set(dictionary_);
-dictionaryLoaded = true;
-console.log(`Test dictionary loaded: ${dictionary.size} words`);
 
 // ===== MAIN GRID GENERATION FUNCTION =====
 // This function creates a new grid with random letters and a hidden word
