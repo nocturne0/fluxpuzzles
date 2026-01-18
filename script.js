@@ -67,7 +67,7 @@ var sizes = {
 document.getElementById("wordInput").addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         event.preventDefault(); // optional: stops form submission
-        checkWord(document.getElementById("wordInput").value)
+        checkWord(document.getElementById("wordInput").value.toUpperCase())
         document.getElementById("wordInput").value = "";
     }
 });
