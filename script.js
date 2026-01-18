@@ -125,9 +125,11 @@ if(dict_used == 1) {
 for (let k = 0; k < kmax; k++) {
     if (k === 0 || k === 26 || k === 30) {
         dictionaries[k] = [];
+        continue;
     } 
     if (k == 1 && dict_used == 1) {
-        dictionaries[k] = []
+        dictionaries[k] = [];
+        continue;
     }
     else {
         let path_ = String(k) + ".txt"
