@@ -139,7 +139,7 @@ for (let k = 0; k < kmax; k++) {
                 .then(r => {
                     if (!r.ok) throw new Error(`Failed to load ${k}.txt`);
                     return r.text();
-                });
+                })
                 .then(text => {
                     dictionaries[k] = text.split(/\r?\n/).filter(Boolean);
                 })
