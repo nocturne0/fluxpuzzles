@@ -217,6 +217,7 @@ function generateGrid() {
         cell.addEventListener('mouseenter', continueSelection);
         cell.addEventListener('mouseup', endSelection);
         cell.addEventListener('mouseleave', (e) => {
+            console.log('mouseleft')
             // End selection if we leave the grid area
             if (isSelecting && !e.relatedTarget?.classList?.contains('cell')) {
                 endSelection(e);
