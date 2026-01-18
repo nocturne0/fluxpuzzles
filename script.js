@@ -134,6 +134,7 @@ for (let k = 0; k < kmax; k++) {
         if(dict_used == 1) {
             path_ = String(k) + "CSW.txt"
         }
+        console.log(path_)
         loadPromises.push(
             fetch(path_)
                 .then(r => {
@@ -236,7 +237,7 @@ function generateGrid() {
     if (dictionaryLoaded) {
         // const pathLength = parseInt(document.getElementById('pathLength').value) || pathlength;
         // const pathLength = pathlength
-        const pathLength = randomlength(gridSize)
+        const pathLength = randomlength(sizelist[dict_used])
         // console.log(pathLength,'letters long')
         currentPath = generateRandomPath(pathLength);
         if (currentPath) {
