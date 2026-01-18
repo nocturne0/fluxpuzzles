@@ -2,10 +2,6 @@
 const INITIAL_GRID_SIZE = 3;
 const DEBUG_MODE = false; // Set to true to show path controls for testing
 
-// Custom dictionary file - set the path to your .txt file (one word per line)
-// Leave as null to use the built-in test dictionary
-const CUSTOM_DICTIONARY_FILE = null; // Example: 'my_words.txt' or 'https://example.com/words.txt'
-
 // Letter distribution - probability for each letter
 // Values must be between 0 and 1, and sum to 1.0
 const LETTER_PROBABILITIES = {
@@ -17,34 +13,6 @@ const LETTER_PROBABILITIES = {
 };
 // Sum: 1.000 (based on English letter frequency)
 
-// Test dictionary (200 words)
-const dictionary_ = [
-    'CAT', 'DOG', 'BIRD', 'FISH', 'LION', 'BEAR', 'WOLF', 'DEER',
-    'APPLE', 'GRAPE', 'MELON', 'PEACH', 'LEMON', 'MANGO', 'BERRY',
-    'HOUSE', 'MOUSE', 'HORSE', 'SNAKE', 'TIGER', 'EAGLE', 'WHALE',
-    'WATER', 'PLANT', 'STONE', 'RIVER', 'OCEAN', 'CLOUD', 'STORM',
-    'BOOK', 'TREE', 'LEAF', 'SEED', 'ROOT', 'STAR', 'MOON', 'SUN',
-    'TABLE', 'CHAIR', 'LIGHT', 'MUSIC', 'DANCE', 'PARTY', 'DREAM',
-    'PIZZA', 'BREAD', 'CHEESE', 'BACON', 'HONEY', 'SUGAR', 'CREAM',
-    'HAPPY', 'SMILE', 'LAUGH', 'PEACE', 'TRUST', 'GRACE', 'BRAVE',
-    'MAGIC', 'QUEST', 'POWER', 'SWIFT', 'BRIGHT', 'GRAND', 'SWEET',
-    'GIANT', 'QUICK', 'SHARP', 'CLEAR', 'FRESH', 'CLEAN', 'ROYAL',
-    'BEACH', 'CORAL', 'PEARL', 'SHELL', 'SANDY', 'WAVES', 'COAST',
-    'FLAME', 'BLAZE', 'SPARK', 'SMOKE', 'EMBER', 'GLOW', 'SHINE',
-    'FROST', 'CHILL', 'WINTER', 'SPRING', 'SUMMER', 'AUTUMN', 'SEASON',
-    'GARDEN', 'FLOWER', 'PETAL', 'BLOOM', 'BLOSSOM', 'MEADOW', 'FIELD',
-    'CASTLE', 'TOWER', 'THRONE', 'CROWN', 'SWORD', 'SHIELD', 'ARMOR',
-    'DRAGON', 'WIZARD', 'KNIGHT', 'PRINCE', 'PRINCESS', 'KINGDOM', 'EMPIRE',
-    'FOREST', 'JUNGLE', 'DESERT', 'MOUNTAIN', 'VALLEY', 'CANYON', 'PLAINS',
-    'PIRATE', 'SAILOR', 'CAPTAIN', 'TREASURE', 'COMPASS', 'ANCHOR', 'VOYAGE',
-    'GUITAR', 'PIANO', 'VIOLIN', 'TRUMPET', 'MELODY', 'HARMONY', 'RHYTHM',
-    'SOCCER', 'TENNIS', 'HOCKEY', 'RACING', 'SWIMMING', 'RUNNING', 'JUMPING',
-    'PURPLE', 'ORANGE', 'YELLOW', 'SILVER', 'GOLDEN', 'BRONZE', 'VIOLET',
-    'PLANET', 'COMET', 'GALAXY', 'NEBULA', 'METEOR', 'COSMOS', 'STELLAR',
-    'ROCKET', 'SPACE', 'ORBIT', 'LAUNCH', 'MISSION', 'EXPLORE', 'DISCOVER',
-    'CODING', 'LAPTOP', 'TABLET', 'SCREEN', 'BUTTON', 'CURSOR', 'MEMORY',
-    'PUZZLE', 'RIDDLE', 'CLUE', 'SECRET', 'MYSTERY', 'CIPHER', 'ENIGMA'
-];
 var sizes = {
     2: {
         4: 1
@@ -104,11 +72,10 @@ document.getElementById("wordInput").addEventListener("keydown", function (event
     }
 });
 
+var dictionaries_ = []
 var dictionaries = [[]]
 for(let k=1;k<32;k++) {
     if(k == 26 || k == 30) {
-        dictionaries.push([])
-        console.log(k)
         continue
     }
     else {
@@ -124,7 +91,7 @@ for(let k=1;k<32;k++) {
               // Split by newlines and remove empty lines
               dict_ = text.split(/\r?\n/).filter(Boolean);
               console.log(dict_); // see the words in the console
-              dictionaries.push(dict_)
+              dictionaries_.push(dict_)
           })
           .catch(error => {
               console.error("Error loading dictionary:", error);
@@ -132,6 +99,15 @@ for(let k=1;k<32;k++) {
     }
 }
 alert('dictionaries done loading')
+for(let k=1;k<32;k++) {
+    if(k == 26 || k == 30) {
+        dictionaries.push([])
+    }
+    else {
+        dictionaries.push(dictionaries_[0])
+        dictionaries_.shift()
+    }
+}
 // ===== END CONFIGURATION =====
 
 // Generate a random letter based on probability distribution
