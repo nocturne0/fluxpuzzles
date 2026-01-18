@@ -158,7 +158,7 @@ Promise.all(loadPromises).then(() => {
 
 // Generate a random letter based on probability distribution
 function randomlength(boardSize) {
-    const weights = sizes[boardSize];
+    const weights = sizelist[dict_used][boardSize];
     if (!weights) {
         throw new Error("Invalid board size");
     }
