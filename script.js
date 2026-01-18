@@ -67,8 +67,8 @@ var sizes = {
 document.getElementById("wordInput").addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         event.preventDefault(); // optional: stops form submission
-        console.log("Enter was pressed!");
         checkWord(document.getElementById("wordInput").value)
+        document.getElementById("wordInput").value = "";
     }
 });
 
@@ -181,7 +181,7 @@ function generateGrid() {
         // const pathLength = parseInt(document.getElementById('pathLength').value) || pathlength;
         // const pathLength = pathlength
         const pathLength = randomlength(gridSize)
-        console.log(pathLength,'letters long')
+        // console.log(pathLength,'letters long')
         currentPath = generateRandomPath(pathLength);
         if (currentPath) {
             const word = getRandomWordOfLength(pathLength);
@@ -228,7 +228,7 @@ function generateGrid() {
 
 function startSelection(e) {
     e.preventDefault();
-    console.log('Start selection');
+    // console.log('Start selection');
     isSelecting = true;
     userPath = [];
     userWord = '';
@@ -240,19 +240,19 @@ function startSelection(e) {
     userPath.push({ row, col, index });
     userWord += gridLetters[index];
     
-    console.log('Started with:', userWord);
+    // console.log('Started with:', userWord);
     updateUserSelection();
 }
 
 function continueSelection(e) {
     if (!isSelecting) return;
     
-    console.log('Continue selection');
+    // console.log('Continue selection');
     const index = parseInt(e.target.dataset.index);
     
     // Check if already selected
     if (userPath.some(p => p.index === index)) {
-        console.log('Already selected');
+        // console.log('Already selected');
         return;
     }
     
@@ -277,24 +277,23 @@ function continueSelection(e) {
             
             if ((rowDiff + colDiff) == 0) {
                 isAdjacentToRecent = false;
-                console.log('aaa',rowDiff,colDiff)
                 break;
             }
         }
-        console.log(isAdjacentToRecent)
+        // console.log(isAdjacentToRecent)
         if (isAdjacentToRecent) {
             userPath.push({ row, col, index });
             userWord += gridLetters[index];
-            console.log('Added letter:', gridLetters[index], 'Word:', userWord);
+            // console.log('Added letter:', gridLetters[index], 'Word:', userWord);
             updateUserSelection();
         } else {
-            console.log('Not adjacent to recent cells');
+            // console.log('Not adjacent to recent cells');
         }
     }
 }
 
 function endSelection(e) {
-    console.log('End selection');
+    // console.log('End selection');
     if (!isSelecting) return;
     isSelecting = false;
     
@@ -313,7 +312,7 @@ function endSelection(e) {
 function checkWord(word) {
     const resultMsg = document.getElementById('resultMessage');
     
-    console.log('Checking word:', word, 'Target:', targetWord, 'In dictionary:', dictionary.has(word));
+    // console.log('Checking word:', word, 'Target:', targetWord, 'In dictionary:', dictionary.has(word));
     
     // Check if it's the target word
     if (word === targetWord) {
@@ -421,7 +420,7 @@ function updateUserSelection() {
     // Then apply current selection
     userPath.forEach((pos, index) => {
         const cell = cells[pos.index];
-        console.log('Highlighting cell', pos.index, cell);
+        // console.log('Highlighting cell', pos.index, cell);
         cell.classList.add('selected', 'user-path-number');
         cell.setAttribute('data-user-path-num', index + 1);
     });
@@ -497,7 +496,7 @@ function generateNewPath() {
     if (currentPath) {
         const word = getRandomWordOfLength(pathLength);
         if (word) {
-            targetWord = word; // Store the new target word
+            targetWord = word.toUpperCase(); // Store the new target word
             placeWordOnPath(word, currentPath);
             // Update target length display
             const targetLengthDisplay = document.getElementById('targetLength');
@@ -515,35 +514,35 @@ function generateNewPath() {
 }
 
 function togglePath() {
-    console.log('togglePath called, pathVisible:', pathVisible, 'currentPath:', currentPath);
+    // console.log('togglePath called, pathVisible:', pathVisible, 'currentPath:', currentPath);
     pathVisible = !pathVisible;
     const button = event.target;
     
     if (pathVisible) {
         // Just show the existing path, don't generate a new one
-        console.log('Showing path...');
+        // console.log('Showing path...');
         button.textContent = 'Hide Path';
         highlightPath();
     } else {
-        console.log('Hiding path...');
+        // console.log('Hiding path...');
         button.textContent = 'Show Path';
         clearPath();
     }
 }
 
 function highlightPath() {
-    console.log('highlightPath called, currentPath:', currentPath);
+    // console.log('highlightPath called, currentPath:', currentPath);
     if (!currentPath) {
-        console.log('No current path to highlight!');
+        // console.log('No current path to highlight!');
         return;
     }
     
     const cells = document.querySelectorAll('.cell');
-    console.log('Total cells:', cells.length);
+    // console.log('Total cells:', cells.length);
     currentPath.forEach((pos, index) => {
         const cellIndex = pos.row * gridSize + pos.col;
         const cell = cells[cellIndex];
-        console.log('Highlighting cell index:', cellIndex, 'Letter:', cell.textContent);
+        // console.log('Highlighting cell index:', cellIndex, 'Letter:', cell.textContent);
         cell.classList.add('highlighted', 'path-number');
         cell.setAttribute('data-path-num', index + 1);
     });
