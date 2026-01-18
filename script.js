@@ -119,7 +119,7 @@ dictionaries.length = 32
 const loadPromises = [];
 let dictionaryLoaded = false;
 let kmax = 32
-if(dict_used == 1} {
+if(dict_used == 1) {
     kmax = 22
 }
 for (let k = 0; k < kmax; k++) {
