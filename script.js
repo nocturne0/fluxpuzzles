@@ -46,6 +46,57 @@ const dictionary_ = [
     'CODING', 'LAPTOP', 'TABLET', 'SCREEN', 'BUTTON', 'CURSOR', 'MEMORY',
     'PUZZLE', 'RIDDLE', 'CLUE', 'SECRET', 'MYSTERY', 'CIPHER', 'ENIGMA'
 ];
+var sizes = {
+    2: {
+        4: 1
+    }
+    3: {
+        7: 5,
+        8: 3,
+        9: 2
+    },
+    4: {
+        11: 10,
+        12: 15,
+        13: 10,
+        14: 8,
+        15: 5,
+        16: 3
+    },
+    5: {
+        12: 10,
+        13: 30,
+        14: 50,
+        15: 80,
+        16: 100,
+        17: 80,
+        18: 60,
+        19: 50,
+        20: 30,
+        21: 20,
+        22: 15,
+        23: 10,
+        24: 8,
+        25: 5
+    },
+    6: {
+        16: 10,
+        17: 20,
+        18: 30,
+        19: 50,
+        20: 100,
+        21: 120,
+        22: 110,
+        23: 100,
+        24: 80,
+        25: 60,
+        27: 40,
+        28: 30,
+        29: 25,
+        30: 20
+    }
+}
+
 var dictionaries = [[]]
 for(let k=1;k<32;k++) {
     if(k == 26 || k == 30) {
@@ -53,29 +104,54 @@ for(let k=1;k<32;k++) {
         console.log(k)
         continue
     }
-    let dict_ = [];
-    
-    fetch(String(k)+'.txt')
-      .then(response => {
-          if (!response.ok) {
-              throw new Error("Could not load words.txt");
-          }
-          return response.text();
-      })
-      .then(text => {
-          // Split by newlines and remove empty lines
-          dict_ = text.split(/\r?\n/).filter(Boolean);
-          console.log(dict_); // see the words in the console
-          dictionaries.push(dict_)
-      })
-      .catch(error => {
-          console.error("Error loading dictionary:", error);
-      });
+    else {
+        let dict_ = [];
+        fetch(String(k)+'.txt')
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error("Could not load words.txt");
+              }
+              return response.text();
+          })
+          .then(text => {
+              // Split by newlines and remove empty lines
+              dict_ = text.split(/\r?\n/).filter(Boolean);
+              console.log(dict_); // see the words in the console
+              dictionaries.push(dict_)
+          })
+          .catch(error => {
+              console.error("Error loading dictionary:", error);
+          });
+    }
 }
 alert('dictionaries done loading')
 // ===== END CONFIGURATION =====
 
 // Generate a random letter based on probability distribution
+function randomlength(boardSize) {
+    const weights = sizes[boardSize];
+    if (!weights) {
+        throw new Error("Invalid board size");
+    }
+
+    // Convert object into entries
+    const entries = Object.entries(weights); // [[length, weight], ...]
+
+    // Sum all weights
+    const totalWeight = entries.reduce((sum, [, weight]) => sum + weight, 0);
+
+    // Pick random number between 0 and totalWeight
+    let rand = Math.random() * totalWeight;
+
+    // Find which bucket it falls into
+    for (const [length, weight] of entries) {
+        rand -= weight;
+        if (rand <= 0) {
+            return Number(length);
+        }
+    }
+}
+
 function getRandomLetter() {
     const rand = Math.random();
     let cumulative = 0;
