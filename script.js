@@ -1,5 +1,5 @@
 // ===== CONFIGURATION =====
-const INITIAL_GRID_SIZE = 3;
+const INITIAL_GRID_SIZE = 4;
 const DEBUG_MODE = false; // Set to true to show path controls for testing
 
 // Letter distribution - probability for each letter
@@ -75,31 +75,7 @@ document.getElementById("wordInput").addEventListener("keydown", function (event
 var dictionaries = []
 dictionaries.length = 32
 const loadPromises = [];
-// for(let k=0;k<32;k++) {
-//     if (k == 0 || k == 26 || k == 30) {
-//         dictionaries[k] = []
-//     }
-//     else {
-//         let dict_ = [];
-        
-//         fetch(String(k)+'.txt')
-//           .then(response => {
-//               if (!response.ok) {
-//                   throw new Error("Could not load words.txt");
-//               }
-//               return response.text();
-//           })
-//           .then(text => {
-//               // Split by newlines and remove empty lines
-//               dict_ = text.split(/\r?\n/).filter(Boolean);
-//               console.log(dict_); // see the words in the console
-//               dictionaries[k] = dict_
-//           })
-//           .catch(error => {
-//               console.error("Error loading dictionary:", error);
-//           });
-//     }
-// }
+let dictionaryLoaded = false;
 for (let k = 0; k < 32; k++) {
     if (k === 0 || k === 26 || k === 30) {
         dictionaries[k] = [];
@@ -118,8 +94,8 @@ for (let k = 0; k < 32; k++) {
 }
 Promise.all(loadPromises).then(() => {
     console.log("✅ All dictionaries loaded");
+    dictionaryLoaded = true;
 });
-alert('dictionaries done loading')
 // ===== END CONFIGURATION =====
 
 // Generate a random letter based on probability distribution
@@ -170,7 +146,6 @@ var grid_size = INITIAL_GRID_SIZE;
 let currentPath = null;
 let pathVisible = false;
 let dictionary = new Set();
-let dictionaryLoaded = false;
 let gridLetters = []; // Store current grid letters
 
 // User selection state
@@ -178,7 +153,7 @@ let isSelecting = false;
 let userPath = [];
 let userWord = '';
 let streak = 0;
-let targetWord = ''; // Store the hidden word
+var targetWord = ''; // Store the hidden word
 let successfulWords = []; // Track successful words
 
 // ===== MAIN GRID GENERATION FUNCTION =====
@@ -206,7 +181,7 @@ function generateGrid() {
         // const pathLength = parseInt(document.getElementById('pathLength').value) || pathlength;
         // const pathLength = pathlength
         const pathLength = randomlength(gridSize)
-        console.log(pathLength)
+        console.log(pathLength,'letters long')
         currentPath = generateRandomPath(pathLength);
         if (currentPath) {
             const word = getRandomWordOfLength(pathLength);
