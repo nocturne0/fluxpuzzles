@@ -50,6 +50,7 @@ var dictionaries = [[]]
 for(let k=1;k<32;k++) {
     if(k == 26 || k == 30) {
         dictionaries.push([])
+        console.log(k)
         continue
     }
     let dict_ = [];
@@ -65,14 +66,13 @@ for(let k=1;k<32;k++) {
           // Split by newlines and remove empty lines
           dict_ = text.split(/\r?\n/).filter(Boolean);
           console.log(dict_); // see the words in the console
+          dictionaries.push(dict_)
       })
       .catch(error => {
           console.error("Error loading dictionary:", error);
       });
-    dictionaries.push(dict_)
 }
 alert('dictionaries done loading')
-alert(dictionaries[10][10])
 // ===== END CONFIGURATION =====
 
 // Generate a random letter based on probability distribution
