@@ -379,7 +379,18 @@ function endSelection(e) {
 
 function checkWord(word) {
     const resultMsg = document.getElementById('resultMessage');
-    
+    if (!/^[A-Za-z]+$/.test(word)) {
+        streak = 0;
+        reason = ' (not in dictionary)'
+        updateStreak();
+        resultMsg.textContent = '✗ Try again' + reason;
+        resultMsg.className = 'failure';
+        setTimeout(() => {
+            resultMsg.textContent = '';
+            resultMsg.className = '';
+        }, 1500);
+        return
+    }
     // console.log('Checking word:', word, 'Target:', targetWord, 'In dictionary:', dictionary.has(word));
     
     // Check if it's the target word
@@ -399,7 +410,7 @@ function checkWord(word) {
         }, 1500);
     } 
     // Check if it's a valid bonus word (same length or longer, in dictionary)
-    else if (word.length >= targetWord.length && dictionaries[word.length].has(word)) {
+    else if (word.length >= targetWord.length && dictionaries[word.length].some(item => item.toLowerCase() === word.toLowerCase())) {
         // Bonus!
         streak++;
         updateStreak();
