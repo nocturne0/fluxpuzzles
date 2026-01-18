@@ -239,7 +239,7 @@ function generateGrid() {
     if (dictionaryLoaded) {
         // const pathLength = parseInt(document.getElementById('pathLength').value) || pathlength;
         // const pathLength = pathlength
-        const pathLength = randomlength(sizelist[dict_used])
+        const pathLength = randomlength(gridSize)
         // console.log(pathLength,'letters long')
         currentPath = generateRandomPath(pathLength);
         if (currentPath) {
