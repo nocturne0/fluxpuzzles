@@ -490,9 +490,13 @@ function checkWord(word) {
     else {
         // Failure - show why
         let reason = '';
-        if (word.length < targetWord.length) {
+        if (!isWordOnBoard(word)) {
+            reason = ' (not on board)';
+        }
+        else if (word.length < targetWord.length) {
             reason = ' (too short)';
-        } else if (!dictionary.has(word)) {
+        } 
+        else if (!dictionaries[word.length].some(item => item.toLowerCase() === word.toLowerCase())) {
             reason = ' (not in dictionary)';
         }
         streak = 0;
