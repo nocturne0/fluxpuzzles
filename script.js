@@ -184,7 +184,7 @@ function generateGrid() {
         // console.log(pathLength,'letters long')
         currentPath = generateRandomPath(pathLength);
         if (currentPath) {
-            const word = getRandomWordOfLength(pathLength);
+            const word = getRandomWordOfLength(pathLength).toUpperCase();
             if (word) {
                 targetWord = word; // Store the target word
                 // Place the word on the path in gridLetters
@@ -494,9 +494,9 @@ function generateNewPath() {
     currentPath = generateRandomPath(pathLength);
     
     if (currentPath) {
-        const word = getRandomWordOfLength(pathLength);
+        const word = getRandomWordOfLength(pathLength).toUpperCase();
         if (word) {
-            targetWord = word.toUpperCase(); // Store the new target word
+            targetWord = word; // Store the new target word
             placeWordOnPath(word, currentPath);
             // Update target length display
             const targetLengthDisplay = document.getElementById('targetLength');
