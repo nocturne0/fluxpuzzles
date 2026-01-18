@@ -405,6 +405,33 @@ function updateWordHistory() {
     });
 }
 
+function updateSkippedHistory() {
+    const historyDiv = document.getElementById('skippedHistory');
+    historyDiv.innerHTML = '';
+    
+    const recentSkipped = skippedWords.slice().reverse();
+    
+    if (recentSkipped.length === 0) {
+        historyDiv.innerHTML = '<span style="color: #999; font-style: italic; font-size: 0.9em;">No skipped words...</span>';
+        return;
+    }
+    
+    recentSkipped.forEach(word => {
+        const badge = document.createElement('div');
+        badge.textContent = word;
+        badge.style.cssText = `
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9em;
+            text-align: center;
+            background: #f44336;
+            color: white;
+        `;
+        historyDiv.appendChild(badge);
+    });
+}
+
 function updateStreak() {
     document.getElementById('streakCounter').textContent = streak;
 }
@@ -415,6 +442,32 @@ function flashSuccess() {
         cell.classList.add('success-flash');
         setTimeout(() => cell.classList.remove('success-flash'), 600);
     });
+}
+
+function skipWord() {
+    if (isProcessing) return; // Prevent multiple skips
+    isProcessing = true;
+    
+    // Add to skipped words list
+    skippedWords.push(targetWord);
+    updateSkippedHistory();
+    
+    // Reset streak
+    streak = 0;
+    updateStreak();
+    
+    // Show skip message with the word
+    const resultMsg = document.getElementById('resultMessage');
+    resultMsg.textContent = `⏭️ Skipped - The word was: ${targetWord}`;
+    resultMsg.className = 'failure';
+    
+    // Generate new grid after brief delay
+    setTimeout(() => {
+        generateGrid();
+        resultMsg.textContent = '';
+        resultMsg.className = '';
+        isProcessing = false;
+    }, 2500);
 }
 
 function updateUserSelection() {
