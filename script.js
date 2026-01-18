@@ -341,7 +341,7 @@ function checkWord(word) {
         }, 1500);
     } 
     // Check if it's a valid bonus word (same length or longer, in dictionary)
-    else if (word.length >= targetWord.length && dictionary.has(word)) {
+    else if (word.length >= targetWord.length && dictionaries[word.length].has(word)) {
         // Bonus!
         streak++;
         updateStreak();
