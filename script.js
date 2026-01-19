@@ -328,6 +328,9 @@ function generateGrid() {
 // ===== END MAIN GRID GENERATION =====
 
 function selectSize(size_used) {
+    if(grid_size == size_used) {
+        return
+    }
     grid_size = size_used
     generateGrid()
 }
