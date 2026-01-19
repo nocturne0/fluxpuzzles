@@ -385,3 +385,40 @@ h1 {
     background: #45a049;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+.size-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.size-button {
+  width: 40px;
+  height: 40px;
+  background: #5b4a7d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.75em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.size-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(91, 74, 125, 0.4);
+  background: #6b5a8d;
+}
+
+.size-button:active {
+  transform: translateY(0);
+}
+
+.size-button.active {
+  background: #4a3a6d;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
