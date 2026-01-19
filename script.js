@@ -810,22 +810,3 @@ function generateRandomPath(length) {
     
     return path;
 }
-
-
-function skipWord() {
-  // Reset streak
-  streak = 0;
-  updateStreak();
-
-  // Show skip message
-  const resultMsg = document.getElementById('resultMessage');
-  resultMsg.textContent = `⏭️ Skipped - ${targetWord}`;
-  resultMsg.className = 'failure';
-
-  // Generate new grid after brief delay
-  setTimeout(() => {
-    generateGrid();
-    resultMsg.textContent = '';
-    resultMsg.className = '';
-  }, 1000);
-}
