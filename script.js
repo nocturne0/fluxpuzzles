@@ -247,6 +247,19 @@ var successfulWords = []; // Track successful words
 var skippedWords = [];
 var isProcessing = false;
 
+var currentwordwidth = document.getElementById('currentWord').clientWidth - 20
+
+const measureDiv = document.createElement('div');
+measureDiv.style.position = 'absolute';
+measureDiv.style.left = '-9999px';
+measureDiv.style.top = '0';
+measureDiv.style.visibility = 'hidden';
+measureDiv.style.pointerEvents = 'none';
+measureDiv.style.userSelect = 'none';
+measureDiv.style.whiteSpace = 'nowrap';
+measureDiv.style.display = 'block'; // match wordDisplay
+document.body.appendChild(measureDiv);
+
 // ===== MAIN GRID GENERATION FUNCTION =====
 // This function creates a new grid with random letters and a hidden word
 function generateGrid() {
@@ -765,7 +778,38 @@ function updateUserSelection() {
     // Update word display
     const wordDisplay = document.getElementById('currentWord');
     if (wordDisplay) {
-        wordDisplay.textContent = userWord || '';
+      const text = userWord || '';
+      // Compute font size first
+      const maxFont = 1.5;
+      const minFont = 0.2;
+
+      measureDiv.textContent = text;
+      console.log(text)
+
+      const style = getComputedStyle(wordDisplay);
+      measureDiv.style.fontFamily = style.fontFamily;
+      measureDiv.style.fontWeight = style.fontWeight;
+      measureDiv.style.fontStyle = style.fontStyle;
+      measureDiv.style.lineHeight = style.lineHeight;
+      measureDiv.style.padding = style.padding;
+      measureDiv.style.letterSpacing = style.letterSpacing
+
+      let low = minFont;
+      let high = maxFont;
+      
+      while (high - low > 0.01) {
+          const mid = (low + high) / 2;
+          measureDiv.style.fontSize = mid + 'em';
+          if (measureDiv.scrollWidth > currentwordwidth) {
+              high = mid;
+          } else {
+              low = mid;
+          }
+      }
+      console.log(low,high,measureDiv.scrollWidth,currentwordwidth)
+      // Apply font size first, THEN set text
+      wordDisplay.style.fontSize = low + 'em';
+      wordDisplay.textContent = text;
     }
 }
 
