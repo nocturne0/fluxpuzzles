@@ -324,7 +324,14 @@ function generateGrid() {
     const button = document.querySelector('button[onclick="togglePath()"]');
     if (button) button.textContent = 'Show Path';
 }
+
+
 // ===== END MAIN GRID GENERATION =====
+
+function selectSize(size_used) {
+    grid_size = size_used
+    generateGrid()
+}
 
 function startSelection(e) {
     e.preventDefault();
