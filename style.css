@@ -336,3 +336,52 @@ h1 {
 #skip-button:active {
   transform: translateY(0);
 }
+
+.dictionary-selector {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dictionary-selector h4 {
+    margin: 0 0 10px 0;
+    color: #667eea;
+    font-size: 1em;
+    text-align: center;
+}
+
+.dictionary-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dict-button {
+    padding: 8px 16px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.dict-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.4);
+}
+
+.dict-button:active {
+    transform: translateY(0);
+}
+
+.dict-button.active {
+    background: #45a049;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
