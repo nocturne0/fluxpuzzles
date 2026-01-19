@@ -1,7 +1,7 @@
 // ===== CONFIGURATION =====
 const INITIAL_GRID_SIZE = 4;
 const DEBUG_MODE = false; // Set to true to show path controls for testing
-var dict_used = 1 // 0 -> DWYL, 1 -> CSW
+var dict_used = 0 // 0 -> DWYL, 1 -> CSW
 var dictmap = {
     0:'DWYL',
     1:'CSW'
@@ -183,7 +183,7 @@ function selectDictionary(dict) {
             // For now, just log the selection
 }
 
-selectDictionary(dict_used)
+selectDictionary(1 - dict_used)
 
 // ===== END CONFIGURATION =====
 
@@ -324,7 +324,6 @@ function generateGrid() {
     const button = document.querySelector('button[onclick="togglePath()"]');
     if (button) button.textContent = 'Show Path';
 }
-
 
 // ===== END MAIN GRID GENERATION =====
 
