@@ -334,7 +334,7 @@ function selectSize(size_used) {
     // Update button states
     const buttons = document.querySelectorAll('.size-button');
     buttons.forEach(btn => {
-        if (btn.textContent === dictmap[`${size_used}x${size_used}`]) {
+        if (btn.textContent === `${size_used}x${size_used}`) {
             btn.classList.add('active');
         } 
         else {
