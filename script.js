@@ -569,25 +569,87 @@ function updateWordHistory() {
     const recentWords = successfulWords.slice().reverse();
     
     if (recentWords.length === 0) {
-        historyDiv.innerHTML = '<span style="color: #999; font-style: italic; font-size: 0.9em;">No words yet...</span>';
+        historyDiv.innerHTML = '<span style="color: #999; font-style: italic; font-size: 0.9em; line-height: 1.2">No words yet...</span>';
         return;
     }
-    
+   
+    const measureDiv = document.createElement('div');
+    measureDiv.style.position = 'absolute';
+    measureDiv.style.left = '-9999px';
+    measureDiv.style.top = '0';
+    measureDiv.style.visibility = 'hidden';
+    measureDiv.style.pointerEvents = 'none';
+    measureDiv.style.userSelect = 'none';
+    measureDiv.style.display = 'flex';
+    measureDiv.style.whiteSpace = 'nowrap';
+    document.body.appendChild(measureDiv);
+
     recentWords.forEach(item => {
         const badge = document.createElement('div');
-        badge.textContent = item.word;
+        badge.textContent = item.word
+
+        // Basic badge styles
         badge.style.cssText = `
             padding: 8px 12px;
             border-radius: 6px;
             font-weight: 600;
             font-size: 0.9em;
+            line-height: 1.2;
             text-align: center;
+            white-space: nowrap;
+            max-width: 240px;
+            overflow: hidden;
             ${item.type === 'perfect' 
                 ? 'background: #4CAF50; color: white;' 
                 : 'background: #FF9800; color: white;'}
         `;
+
         historyDiv.appendChild(badge);
+
+        // -------------------
+        // Inline auto-shrink using measureDiv
+        // -------------------
+        // Copy styles that affect width
+        measureDiv.textContent = badge.textContent;
+        measureDiv.style.fontWeight = '600';
+        measureDiv.style.fontFamily = getComputedStyle(badge).fontFamily;
+        measureDiv.style.lineHeight = '1.2';
+        measureDiv.style.padding = '8px 12px';
+
+        let min = 0.2;
+        let max = 0.9;
+
+        measureDiv.style.visibility = 'hidden'; // ensure invisibility
+
+        // Binary search
+        while (max - min > 0.01) {
+            const mid = (min + max) / 2;
+            measureDiv.style.fontSize = mid + 'em';
+
+            if (measureDiv.scrollWidth > 190) {
+                max = mid;
+            } else {
+                min = mid;
+            }
+        }
+        console.log(min,max,measureDiv.scrollWidth)
+        badge.style.fontSize = min + 'em';
     });
+    // recentWords.forEach(item => {
+    //     const badge = document.createElement('div');
+    //     badge.textContent = item.word;
+    //     badge.style.cssText = `
+    //         padding: 8px 12px;
+    //         border-radius: 6px;
+    //         font-weight: 600;
+    //         font-size: 0.9em;
+    //         text-align: center;
+    //         ${item.type === 'perfect' 
+    //             ? 'background: #4CAF50; color: white;' 
+    //             : 'background: #FF9800; color: white;'}
+    //     `;
+    //     historyDiv.appendChild(badge);
+    // });
 }
 
 function updateSkippedHistory() {
@@ -600,21 +662,80 @@ function updateSkippedHistory() {
         historyDiv.innerHTML = '<span style="color: #999; font-style: italic; font-size: 0.9em;">No skipped words...</span>';
         return;
     }
-    
-    recentSkipped.forEach(word => {
+    const measureDiv = document.createElement('div');
+    measureDiv.style.position = 'absolute';
+    measureDiv.style.left = '-9999px';
+    measureDiv.style.top = '0';
+    measureDiv.style.visibility = 'hidden';
+    measureDiv.style.pointerEvents = 'none';
+    measureDiv.style.userSelect = 'none';
+    measureDiv.style.display = 'flex';
+    measureDiv.style.whiteSpace = 'nowrap';
+    document.body.appendChild(measureDiv);
+
+    skippedWords.forEach(item => {
         const badge = document.createElement('div');
-        badge.textContent = word;
+        badge.textContent = item
+
+        // Basic badge styles
         badge.style.cssText = `
             padding: 8px 12px;
             border-radius: 6px;
             font-weight: 600;
             font-size: 0.9em;
+            line-height: 1.2;
             text-align: center;
+            white-space: nowrap;
+            max-width: 240px;
+            overflow: hidden;
             background: #f44336;
-            color: white;
         `;
+
         historyDiv.appendChild(badge);
+
+        // -------------------
+        // Inline auto-shrink using measureDiv
+        // -------------------
+        // Copy styles that affect width
+        measureDiv.textContent = badge.textContent;
+        measureDiv.style.fontWeight = '600';
+        measureDiv.style.fontFamily = getComputedStyle(badge).fontFamily;
+        measureDiv.style.lineHeight = '1.2';
+        measureDiv.style.padding = '8px 12px';
+
+        let min = 0.2;
+        let max = 0.9;
+
+        measureDiv.style.visibility = 'hidden'; // ensure invisibility
+
+        // Binary search
+        while (max - min > 0.01) {
+            const mid = (min + max) / 2;
+            measureDiv.style.fontSize = mid + 'em';
+
+            if (measureDiv.scrollWidth > 190) {
+                max = mid;
+            } else {
+                min = mid;
+            }
+        }
+        console.log(min,max,measureDiv.scrollWidth)
+        badge.style.fontSize = min + 'em';
     });
+    // recentSkipped.forEach(word => {
+    //     const badge = document.createElement('div');
+    //     badge.textContent = word;
+    //     badge.style.cssText = `
+    //         padding: 8px 12px;
+    //         border-radius: 6px;
+    //         font-weight: 600;
+    //         font-size: 0.9em;
+    //         text-align: center;
+    //         background: #f44336;
+    //         color: white;
+    //     `;
+    //     historyDiv.appendChild(badge);
+    // });
 }
 
 function updateStreak() {
