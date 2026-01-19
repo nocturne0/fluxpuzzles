@@ -120,9 +120,9 @@ var dictionaryLoaded = false;
 // Dictionary selection
 function selectDictionary(dict) {
     dict_used = dict
-    var dictionaries = []
+    dictionaries = []
     dictionaries.length = 32;
-    var dictionaryLoaded = false;
+    dictionaryLoaded = false;
 
     // Update button states
     const buttons = document.querySelectorAll('.dict-button');
