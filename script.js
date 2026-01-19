@@ -105,7 +105,6 @@ var sizes2 = {
     }
 }
 var sizelist = [sizes1,sizes2]
-
 document.getElementById("wordInput").addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         event.preventDefault(); // optional: stops form submission
@@ -214,6 +213,7 @@ let streak = 0;
 var targetWord = ''; // Store the hidden word
 var successfulWords = []; // Track successful words
 var skippedWords = [];
+var isProcessing = false;
 
 // ===== MAIN GRID GENERATION FUNCTION =====
 // This function creates a new grid with random letters and a hidden word
