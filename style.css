@@ -223,7 +223,9 @@ h1 {
 }
 
 #currentWord {
-  min-height: 2.2em;
+  min-height: 50px;
+  max-height: 50px;
+  line-height: 30px;
   padding: 10px;
   background: #f0f0f0;
   border-radius: 8px;
