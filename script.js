@@ -2,6 +2,10 @@
 const INITIAL_GRID_SIZE = 4;
 const DEBUG_MODE = false; // Set to true to show path controls for testing
 var dict_used = 1 // 0 -> DWYL, 1 -> CSW
+var dictmap = {
+    0:'DWYL',
+    1:'CSW'
+}
 
 // Letter distribution - probability for each letter
 // Values must be between 0 and 1, and sum to 1.0
@@ -130,7 +134,7 @@ function selectDictionary(dict) {
     // Update button states
     const buttons = document.querySelectorAll('.dict-button');
     buttons.forEach(btn => {
-        if (btn.textContent === dict) {
+        if (btn.textContent === dictmap[dict]) {
             btn.classList.add('active');
         } else {
             btn.classList.remove('active');
@@ -166,17 +170,17 @@ function selectDictionary(dict) {
                     .then(text => {
                         dictionaries[k] = text.split(/\r?\n/).filter(Boolean);
                     })
-            );
+                );
+            }
         }
-}
-Promise.all(loadPromises).then(() => {
-    console.log("✅ All dictionaries loaded");
-    dictionaryLoaded = true;
-    generateGrid();
-});
-    
-    // TODO: Load the selected dictionary
-    // For now, just log the selection
+        Promise.all(loadPromises).then(() => {
+            console.log("✅ All dictionaries loaded");
+            dictionaryLoaded = true;
+            generateGrid();
+        });
+            
+            // TODO: Load the selected dictionary
+            // For now, just log the selection
 }
 
 selectDictionary(dict_used)
