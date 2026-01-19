@@ -601,7 +601,7 @@ function skipWord() {
         resultMsg.textContent = '';
         resultMsg.className = '';
         isProcessing = false;
-    }, 2500);
+    }, 1500);
 }
 
 function updateUserSelection() {
