@@ -119,6 +119,9 @@ var dictionaryLoaded = false;
 
 // Dictionary selection
 function selectDictionary(dict) {
+    if(dict_used == dict) {
+        return
+    }
     dict_used = dict
     dictionaries = []
     dictionaries.length = 32;
