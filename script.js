@@ -635,21 +635,6 @@ function updateWordHistory() {
         console.log(min,max,measureDiv.scrollWidth)
         badge.style.fontSize = min + 'em';
     });
-    // recentWords.forEach(item => {
-    //     const badge = document.createElement('div');
-    //     badge.textContent = item.word;
-    //     badge.style.cssText = `
-    //         padding: 8px 12px;
-    //         border-radius: 6px;
-    //         font-weight: 600;
-    //         font-size: 0.9em;
-    //         text-align: center;
-    //         ${item.type === 'perfect' 
-    //             ? 'background: #4CAF50; color: white;' 
-    //             : 'background: #FF9800; color: white;'}
-    //     `;
-    //     historyDiv.appendChild(badge);
-    // });
 }
 
 function updateSkippedHistory() {
@@ -689,6 +674,7 @@ function updateSkippedHistory() {
             max-width: 240px;
             overflow: hidden;
             background: #f44336;
+            color: white;
         `;
 
         historyDiv.appendChild(badge);
@@ -722,20 +708,6 @@ function updateSkippedHistory() {
         console.log(min,max,measureDiv.scrollWidth)
         badge.style.fontSize = min + 'em';
     });
-    // recentSkipped.forEach(word => {
-    //     const badge = document.createElement('div');
-    //     badge.textContent = word;
-    //     badge.style.cssText = `
-    //         padding: 8px 12px;
-    //         border-radius: 6px;
-    //         font-weight: 600;
-    //         font-size: 0.9em;
-    //         text-align: center;
-    //         background: #f44336;
-    //         color: white;
-    //     `;
-    //     historyDiv.appendChild(badge);
-    // });
 }
 
 function updateStreak() {
