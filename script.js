@@ -673,7 +673,7 @@ function updateSkippedHistory() {
             background: #f44336;
             color: white;
         `;
-
+        
         historyDiv.appendChild(badge);
 
         // -------------------
