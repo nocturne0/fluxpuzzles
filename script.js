@@ -631,7 +631,6 @@ function updateWordHistory() {
                 min = mid;
             }
         }
-        console.log(min,max,measureDiv.scrollWidth)
         badge.style.fontSize = min + 'em';
     });
 }
@@ -703,7 +702,6 @@ function updateSkippedHistory() {
                 min = mid;
             }
         }
-        console.log(min,max,measureDiv.scrollWidth)
         badge.style.fontSize = min + 'em';
     });
 }
@@ -791,7 +789,6 @@ document.addEventListener('mouseup', endSelection);
 document.addEventListener('mouseleave', (e) => {
     if (isSelecting && e.target.classList.contains('grid')) {
         endSelection();
-        console.log('left grid')
     }
 });
 
