@@ -598,7 +598,6 @@ function updateWordHistory() {
             text-align: center;
             white-space: nowrap;
             max-width: 240px;
-            overflow: hidden;
             ${item.type === 'perfect' 
                 ? 'background: #4CAF50; color: white;' 
                 : 'background: #FF9800; color: white;'}
@@ -658,7 +657,7 @@ function updateSkippedHistory() {
     measureDiv.style.whiteSpace = 'nowrap';
     document.body.appendChild(measureDiv);
 
-    skippedWords.forEach(item => {
+    recentSkipped.forEach(item => {
         const badge = document.createElement('div');
         badge.textContent = item
 
@@ -672,7 +671,6 @@ function updateSkippedHistory() {
             text-align: center;
             white-space: nowrap;
             max-width: 240px;
-            overflow: hidden;
             background: #f44336;
             color: white;
         `;
