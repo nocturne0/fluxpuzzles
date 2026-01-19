@@ -114,45 +114,70 @@ document.getElementById("wordInput").addEventListener("keydown", function (event
 });
 
 var dictionaries = []
-dictionaries.length = 32
-const loadPromises = [];
-let dictionaryLoaded = false;
-let kmax = 32
-if(dict_used == 1) {
-    kmax = 22
-}
-for (let k = 0; k < kmax; k++) {
-    if (k === 0 || k === 26 || k === 30) {
-        dictionaries[k] = [];
-        continue;
-    } 
-    if (k == 1 && dict_used == 1) {
-        dictionaries[k] = [];
-        continue;
-    }
-    else {
-        let path_ = String(k) + ".txt"
-        if(dict_used == 1) {
-            path_ = String(k) + "CSW.txt"
+dictionaries.length = 32;
+var dictionaryLoaded = false;
+
+// Dictionary selection
+function selectDictionary(dict) {
+    dict_used = dict
+    var dictionaries = []
+    dictionaries.length = 32;
+    var dictionaryLoaded = false;
+
+    // Update button states
+    const buttons = document.querySelectorAll('.dict-button');
+    buttons.forEach(btn => {
+        if (btn.textContent === dict) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
         }
-        console.log(path_)
-        loadPromises.push(
-            fetch(path_)
-                .then(r => {
-                    if (!r.ok) throw new Error(`Failed to load ${k}.txt`);
-                    return r.text();
-                })
-                .then(text => {
-                    dictionaries[k] = text.split(/\r?\n/).filter(Boolean);
-                })
-        );
+    });
+
+    const loadPromises = [];
+    let kmax = 32
+    if(dict_used == 1) {
+        kmax = 22
     }
+    for (let k = 0; k < kmax; k++) {
+        if (k === 0 || k === 26 || k === 30) {
+            dictionaries[k] = [];
+            continue;
+        } 
+        if (k == 1 && dict_used == 1) {
+            dictionaries[k] = [];
+            continue;
+        }
+        else {
+            let path_ = String(k) + ".txt"
+            if(dict_used == 1) {
+                path_ = String(k) + "CSW.txt"
+            }
+            console.log(path_)
+            loadPromises.push(
+                fetch(path_)
+                    .then(r => {
+                        if (!r.ok) throw new Error(`Failed to load ${k}.txt`);
+                        return r.text();
+                    })
+                    .then(text => {
+                        dictionaries[k] = text.split(/\r?\n/).filter(Boolean);
+                    })
+            );
+        }
 }
 Promise.all(loadPromises).then(() => {
     console.log("✅ All dictionaries loaded");
     dictionaryLoaded = true;
     generateGrid();
 });
+    
+    // TODO: Load the selected dictionary
+    // For now, just log the selection
+}
+
+selectDictionary(dict_used)
+
 // ===== END CONFIGURATION =====
 
 // Generate a random letter based on probability distribution
