@@ -34,13 +34,13 @@ body {
 }
 
 .sidebars {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 250px;
-  height: 80vh;
-  justify-content: flex-start;
-  position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 250px;
+    align-self: stretch; /* Stretch to match container height */
+    justify-content: flex-start;
+    position: relative;
 }
 
 .container {
