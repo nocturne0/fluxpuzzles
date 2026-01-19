@@ -331,6 +331,16 @@ function selectSize(size_used) {
     if(grid_size == size_used) {
         return
     }
+    // Update button states
+    const buttons = document.querySelectorAll('.size-button');
+    buttons.forEach(btn => {
+        if (btn.textContent === dictmap[dict]) {
+            btn.classList.add('active');
+        } 
+        else {
+            btn.classList.remove('active');
+        }
+    });
     grid_size = size_used
     generateGrid()
 }
