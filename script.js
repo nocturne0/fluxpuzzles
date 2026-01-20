@@ -501,6 +501,43 @@ function findWordFromPosition(word, currentPos, visited) {
     
     return false;
 }
+function resultmessage(message) {
+    const resultMsg = document.getElementById('resultMessage');
+    if (resultMsg) {
+      const text = message;
+      // Compute font size first
+      const maxFont = 1.5;
+      const minFont = 0.2;
+
+      measureDiv.textContent = text;
+
+      const style = getComputedStyle(wordDisplay);
+      measureDiv.style.fontFamily = style.fontFamily;
+      measureDiv.style.fontWeight = style.fontWeight;
+      measureDiv.style.fontStyle = style.fontStyle;
+      measureDiv.style.lineHeight = style.lineHeight;
+      measureDiv.style.padding = style.padding;
+      measureDiv.style.letterSpacing = style.letterSpacing
+
+      let low = minFont;
+      let high = maxFont;
+      
+      while (high - low > 0.01) {
+          const mid = (low + high) / 2;
+          measureDiv.style.letterSpacing = String(2*mid/1.5)+'px'
+          measureDiv.style.fontSize = mid + 'em';
+          if (measureDiv.scrollWidth > currentwordwidth) {
+              high = mid;
+          } else {
+              low = mid;
+          }
+      }
+      resultMsg.style.letterSpacing = String(2*(low+high)/3)+'px'
+      // Apply font size first, THEN set text
+      resultMsg.style.fontSize = low + 'em';
+      resultMsg.textContent = text;
+    }
+}
 
 function checkWord(word) {
     const resultMsg = document.getElementById('resultMessage');
@@ -508,7 +545,7 @@ function checkWord(word) {
         streak = 0;
         reason = ' (not in dictionary)'
         updateStreak();
-        resultMsg.textContent = '✗ Try again' + reason;
+        resultmesage('✗ Try again' + reason);
         resultMsg.className = 'failure';
         setTimeout(() => {
             resultMsg.textContent = '';
@@ -525,7 +562,7 @@ function checkWord(word) {
         updateStreak();
         successfulWords.push({ word: word, type: 'perfect' });
         updateWordHistory();
-        resultMsg.textContent = '✓ Perfect! ' + word;
+        resultMsg('✓ Perfect! ' + word);
         resultMsg.className = 'success';
         flashSuccess();
         setTimeout(() => {
@@ -541,7 +578,7 @@ function checkWord(word) {
         updateStreak();
         successfulWords.push({ word: word, type: 'bonus' });
         updateWordHistory();
-        resultMsg.textContent = '⭐ BONUS! ' + word + ' (length: ' + word.length + ')';
+        resultMsg('⭐ BONUS! ' + word + ' (length: ' + word.length + ')');
         resultMsg.className = 'bonus';
         flashSuccess();
         setTimeout(() => {
@@ -565,7 +602,7 @@ function checkWord(word) {
         } 
         streak = 0;
         updateStreak();
-        resultMsg.textContent = '✗ Try again' + reason;
+        resultMsg(textContent = '✗ Try again' + reason);
         resultMsg.className = 'failure';
         setTimeout(() => {
             resultMsg.textContent = '';
