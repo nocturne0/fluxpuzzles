@@ -562,7 +562,7 @@ function checkWord(word) {
         updateStreak();
         successfulWords.push({ word: word, type: 'perfect' });
         updateWordHistory();
-        resultMsg('✓ Perfect! ' + word);
+        resultmessage('✓ Perfect! ' + word);
         resultMsg.className = 'success';
         flashSuccess();
         setTimeout(() => {
@@ -578,7 +578,7 @@ function checkWord(word) {
         updateStreak();
         successfulWords.push({ word: word, type: 'bonus' });
         updateWordHistory();
-        resultMsg('⭐ BONUS! ' + word + ' (length: ' + word.length + ')');
+        resultmessage('⭐ BONUS! ' + word + ' (length: ' + word.length + ')');
         resultMsg.className = 'bonus';
         flashSuccess();
         setTimeout(() => {
@@ -602,7 +602,7 @@ function checkWord(word) {
         } 
         streak = 0;
         updateStreak();
-        resultMsg(textContent = '✗ Try again' + reason);
+        resultmessage(textContent = '✗ Try again' + reason);
         resultMsg.className = 'failure';
         setTimeout(() => {
             resultMsg.textContent = '';
