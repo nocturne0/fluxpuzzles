@@ -541,7 +541,7 @@ function resultmessage(message) {
 
 function checkWord(word) {
     const resultMsg = document.getElementById('resultMessage');
-    if (!/^[A-Za-z]+$/.test(word) || (dict == 0 && (word.length == 26 || word.length == 30)) || (dict == 1 && word.length > 21)) {
+    if (!/^[A-Za-z]+$/.test(word) || (dict_used == 0 && (word.length == 26 || word.length == 30)) || (dict_used == 1 && word.length > 21)) {
         streak = 0;
         reason = ' (not in dictionary)'
         updateStreak();
