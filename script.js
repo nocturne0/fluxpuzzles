@@ -506,7 +506,7 @@ function resultmessage(message) {
     if (resultMsg) {
       const text = message;
       // Compute font size first
-      const maxFont = 1.5;
+      const maxFont = 1;
       const minFont = 0.2;
 
       measureDiv.textContent = text;
