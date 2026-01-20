@@ -532,9 +532,9 @@ function resultmessage(message) {
               low = mid;
           }
       }
+      resultMsg.style.fontSize = low + 'em';
       resultMsg.style.letterSpacing = String(2*(low+high)/3)+'px'
       // Apply font size first, THEN set text
-      resultMsg.style.fontSize = low + 'em';
       resultMsg.textContent = text;
     }
 }
