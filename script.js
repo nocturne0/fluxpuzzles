@@ -504,7 +504,7 @@ function findWordFromPosition(word, currentPos, visited) {
 
 function checkWord(word) {
     const resultMsg = document.getElementById('resultMessage');
-    if (!/^[A-Za-z]+$/.test(word)) {
+    if (!/^[A-Za-z]+$/.test(word) || (dict == 0 && (word.length == 26 || word.length == 30)) || ) {
         streak = 0;
         reason = ' (not in dictionary)'
         updateStreak();
@@ -784,7 +784,6 @@ function updateUserSelection() {
       const minFont = 0.2;
 
       measureDiv.textContent = text;
-      console.log(text)
 
       const style = getComputedStyle(wordDisplay);
       measureDiv.style.fontFamily = style.fontFamily;
@@ -799,6 +798,7 @@ function updateUserSelection() {
       
       while (high - low > 0.01) {
           const mid = (low + high) / 2;
+          measureDiv.style.letterSpacing = String(2*mid/1.5)+'px'
           measureDiv.style.fontSize = mid + 'em';
           if (measureDiv.scrollWidth > currentwordwidth) {
               high = mid;
@@ -806,7 +806,7 @@ function updateUserSelection() {
               low = mid;
           }
       }
-      console.log(low,high,measureDiv.scrollWidth,currentwordwidth)
+      wordDisplay.style.letterSpacing = String(2*(low+high)/3)+'px'
       // Apply font size first, THEN set text
       wordDisplay.style.fontSize = low + 'em';
       wordDisplay.textContent = text;
