@@ -238,6 +238,10 @@ h1 {
 
 #resultMessage {
   transition: all 0.3s ease;
+  white-space: nowrap;
+  line-height: 1.2em;
+  min-height: 1.5em;
+  max-height: 1.5em;
 }
 
 .success {
