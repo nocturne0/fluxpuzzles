@@ -511,7 +511,7 @@ function resultmessage(message) {
 
       measureDiv.textContent = text;
 
-      const style = getComputedStyle(wordDisplay);
+      const style = getComputedStyle(resultMsg);
       measureDiv.style.fontFamily = style.fontFamily;
       measureDiv.style.fontWeight = style.fontWeight;
       measureDiv.style.fontStyle = style.fontStyle;
