@@ -129,6 +129,7 @@ function selectDictionary(dict) {
         return
     }
     hintsUsed = 0
+    document.getElementById('hintButton').disabled = false;
     updateHintDisplay()
     dict_used = dict
     dictionaries = []
@@ -349,6 +350,7 @@ function selectSize(size_used) {
         return
     }
     hintsUsed = 0
+    document.getElementById('hintButton').disabled = false;
     updateHintDisplay()
     // Update button states
     const buttons = document.querySelectorAll('.size-button');
@@ -649,7 +651,7 @@ function checkWord(word) {
         // Bonus!
         streak++;
         hintsUsed = 0
-        document.getElementById('hintButton').disabled = true;
+        document.getElementById('hintButton').disabled = false;
         updateHintDisplay()
         updateStreak();
         successfulWords.push({ word: word, type: 'bonus' });
