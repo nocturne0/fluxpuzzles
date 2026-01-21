@@ -343,6 +343,44 @@ h1 {
   transform: translateY(0);
 }
 
+.hint-button {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 15px;
+}
+
+.hint-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+}
+
+.hint-button:active {
+    transform: translateY(0);
+}
+
+.hint-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#hintDisplay {
+    font-size: 1.2em;
+    color: #2196F3;
+    font-weight: bold;
+    min-height: 1.5em;
+}
+
 .dictionary-selector {
     position: absolute;
     top: 20px;
