@@ -30,8 +30,14 @@
                 <div style="font-size: 1.2em; color: #667eea; font-weight: bold; margin-bottom: 10px;">
                     Streak: <span id="streakCounter">0</span> 🔥
                     <span style="margin-left: 20px;"><span id="targetLength">0</span> letters</span>
+                    <button class="hint-button" id="hintButton" onclick="giveHint()">
+                        <span style="font-size: 1.1em;">💡</span>
+                        <span>Hint</span>
+                    </button>
                 </div>
+                
                 <div id="currentWord"></div>
+                <div id="hintDisplay"></div>
                 <div id="resultMessage" style="margin-top: 10px; font-size: 1.1em; font-weight: bold; min-height: 1.5em;"></div>
             </div>
             
