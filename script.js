@@ -9,6 +9,19 @@ var dictmap = {
 
 
 var hintsUsed = 0;
+var currentwordwidth = document.getElementById('currentWord').clientWidth - 20
+
+const measureDiv = document.createElement('div');
+measureDiv.style.position = 'absolute';
+measureDiv.style.left = '-9999px';
+measureDiv.style.top = '0';
+measureDiv.style.visibility = 'hidden';
+measureDiv.style.pointerEvents = 'none';
+measureDiv.style.userSelect = 'none';
+measureDiv.style.whiteSpace = 'nowrap';
+measureDiv.style.display = 'block'; // match wordDisplay
+document.body.appendChild(measureDiv);
+
 // Letter distribution - probability for each letter
 // Values must be between 0 and 1, and sum to 1.0
 const LETTER_PROBABILITIES = {
@@ -251,19 +264,6 @@ var targetWord = ''; // Store the hidden word
 var successfulWords = []; // Track successful words
 var skippedWords = [];
 var isProcessing = false;
-
-var currentwordwidth = document.getElementById('currentWord').clientWidth - 20
-
-const measureDiv = document.createElement('div');
-measureDiv.style.position = 'absolute';
-measureDiv.style.left = '-9999px';
-measureDiv.style.top = '0';
-measureDiv.style.visibility = 'hidden';
-measureDiv.style.pointerEvents = 'none';
-measureDiv.style.userSelect = 'none';
-measureDiv.style.whiteSpace = 'nowrap';
-measureDiv.style.display = 'block'; // match wordDisplay
-document.body.appendChild(measureDiv);
 
 // ===== MAIN GRID GENERATION FUNCTION =====
 // This function creates a new grid with random letters and a hidden word
