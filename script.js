@@ -390,7 +390,7 @@ function getMaxHints(size) {
 function updateHintDisplay() {
     const hintDisplay = document.getElementById('hintDisplay');
     if (hintsUsed === 0) {
-        hintDisplay.textContent = '';
+        hintdisplaymessage('');
         return;
     }
     
@@ -426,7 +426,7 @@ function updateHintDisplay() {
         hint += ' ';
     }
     
-    hintDisplay.textContent = hint.trim();
+    hintdisplaymessage(hint.trim());
 }
 
 
@@ -608,6 +608,44 @@ function resultmessage(message) {
       resultMsg.style.letterSpacing = String(2*(low+high)/3)+'px'
       // Apply font size first, THEN set text
       resultMsg.textContent = text;
+    }
+}
+
+function hintdisplaymessage(message) {
+    const hintmessage = document.getElementById('hintDisplay');
+    if (hintmessage) {
+      const text = message;
+      // Compute font size first
+      const maxFont = 1;
+      const minFont = 0.2;
+
+      measureDiv.textContent = text;
+
+      const style = getComputedStyle(hintmessage);
+      measureDiv.style.fontFamily = style.fontFamily;
+      measureDiv.style.fontWeight = style.fontWeight;
+      measureDiv.style.fontStyle = style.fontStyle;
+      measureDiv.style.lineHeight = style.lineHeight;
+      measureDiv.style.padding = style.padding;
+      measureDiv.style.letterSpacing = style.letterSpacing
+
+      let low = minFont;
+      let high = maxFont;
+      
+      while (high - low > 0.01) {
+          const mid = (low + high) / 2;
+          measureDiv.style.letterSpacing = String(2*mid/1.5)+'px'
+          measureDiv.style.fontSize = mid + 'em';
+          if (measureDiv.scrollWidth > currentwordwidth) {
+              high = mid;
+          } else {
+              low = mid;
+          }
+      }
+      hintmessage.style.fontSize = low + 'em';
+      hintmessage.style.letterSpacing = String(2*(low+high)/3)+'px'
+      // Apply font size first, THEN set text
+      hintmessage.textContent = text;
     }
 }
 
