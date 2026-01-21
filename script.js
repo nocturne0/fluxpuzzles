@@ -630,7 +630,7 @@ function checkWord(word) {
         // Success!
         streak++;
         hintsUsed = 0
-        document.getElementById('hintButton').disabled = true;
+        document.getElementById('hintButton').disabled = false;
         updateHintDisplay()
         updateStreak();
         successfulWords.push({ word: word, type: 'perfect' });
@@ -848,7 +848,7 @@ function skipWord() {
     if (isProcessing) return; // Prevent multiple skips
     isProcessing = true;
     hintsUsed = 0
-    document.getElementById('hintButton').disabled = true;
+    document.getElementById('hintButton').disabled = false;
     updateHintDisplay()
     
     // Add to skipped words list
