@@ -365,7 +365,7 @@ function selectSize(size_used) {
 }
 
 function giveHint() {
-    const size = parseInt(document.getElementById('gridSize').value) || 4;
+    const size = grid_size;
     const maxHints = getMaxHints(size);
     
     if (hintsUsed >= maxHints) {
