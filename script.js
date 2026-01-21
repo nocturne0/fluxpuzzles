@@ -246,6 +246,7 @@ var targetWord = ''; // Store the hidden word
 var successfulWords = []; // Track successful words
 var skippedWords = [];
 var isProcessing = false;
+let hintsUsed = 0;
 
 var currentwordwidth = document.getElementById('currentWord').clientWidth - 20
 
