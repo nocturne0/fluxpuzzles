@@ -378,7 +378,9 @@ h1 {
     font-size: 1.2em;
     color: #2196F3;
     font-weight: bold;
-    min-height: 1.5em;
+    min-height: 30px;
+    max-height: 30px;
+    line-height: 20px;
 }
 
 .dictionary-selector {
