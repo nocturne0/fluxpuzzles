@@ -7,6 +7,8 @@ var dictmap = {
     1:'CSW'
 }
 
+
+var hintsUsed = 0;
 // Letter distribution - probability for each letter
 // Values must be between 0 and 1, and sum to 1.0
 const LETTER_PROBABILITIES = {
@@ -248,7 +250,6 @@ var targetWord = ''; // Store the hidden word
 var successfulWords = []; // Track successful words
 var skippedWords = [];
 var isProcessing = false;
-let hintsUsed = 0;
 
 var currentwordwidth = document.getElementById('currentWord').clientWidth - 20
 
@@ -629,6 +630,7 @@ function checkWord(word) {
         // Success!
         streak++;
         hintsUsed = 0
+        document.getElementById('hintButton').disabled = true;
         updateHintDisplay()
         updateStreak();
         successfulWords.push({ word: word, type: 'perfect' });
@@ -647,6 +649,7 @@ function checkWord(word) {
         // Bonus!
         streak++;
         hintsUsed = 0
+        document.getElementById('hintButton').disabled = true;
         updateHintDisplay()
         updateStreak();
         successfulWords.push({ word: word, type: 'bonus' });
@@ -845,6 +848,7 @@ function skipWord() {
     if (isProcessing) return; // Prevent multiple skips
     isProcessing = true;
     hintsUsed = 0
+    document.getElementById('hintButton').disabled = true;
     updateHintDisplay()
     
     // Add to skipped words list
