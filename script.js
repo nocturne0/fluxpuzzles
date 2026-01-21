@@ -358,6 +358,70 @@ function selectSize(size_used) {
     generateGrid()
 }
 
+function giveHint() {
+    const size = parseInt(document.getElementById('gridSize').value) || 4;
+    const maxHints = getMaxHints(size);
+    
+    if (hintsUsed >= maxHints) {
+        return; // No more hints available
+    }
+    
+    hintsUsed++;
+    updateHintDisplay();
+    
+    if (hintsUsed >= maxHints) {
+        document.getElementById('hintButton').disabled = true;
+    }
+}
+
+function getMaxHints(size) {
+    // 3x3: 2 hints, 4x4: 4 hints, 5x5: 6 hints, 6x6: 8 hints
+    return size === 3 ? 2 : (size - 2) * 2;
+}
+
+function updateHintDisplay() {
+    const hintDisplay = document.getElementById('hintDisplay');
+    if (hintsUsed === 0) {
+        hintDisplay.textContent = '';
+        return;
+    }
+    
+    const size = parseInt(document.getElementById('gridSize').value) || 4;
+    const maxPerSide = size - 1; // 3x3: 2, 4x4: 3, 5x5: 4, 6x6: 5
+    
+    let hint = '';
+    const wordArray = targetWord.split('');
+    
+    // Determine which letters to reveal based on hints used
+    for (let i = 0; i < targetWord.length; i++) {
+        const fromStart = i;
+        const fromEnd = targetWord.length - 1 - i;
+        
+        // Check if this position should be revealed
+        let revealed = false;
+        
+        // First hint: first letter
+        if (hintsUsed >= 1 && fromStart === 0) revealed = true;
+        // Second hint: last letter
+        if (hintsUsed >= 2 && fromEnd === 0) revealed = true;
+        // Third hint onwards: alternating from start
+        if (hintsUsed >= 3 && fromStart === 1) revealed = true;
+        // Fourth hint: second to last
+        if (hintsUsed >= 4 && fromEnd === 1) revealed = true;
+        // Continue pattern for 5x5 and 6x6
+        if (hintsUsed >= 5 && fromStart === 2) revealed = true;
+        if (hintsUsed >= 6 && fromEnd === 2) revealed = true;
+        if (hintsUsed >= 7 && fromStart === 3) revealed = true;
+        if (hintsUsed >= 8 && fromEnd === 3) revealed = true;
+        
+        hint += revealed ? wordArray[i] : '_';
+        hint += ' ';
+    }
+    
+    hintDisplay.textContent = hint.trim();
+}
+
+
 function startSelection(e) {
     e.preventDefault();
     // console.log('Start selection');
