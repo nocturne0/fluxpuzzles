@@ -126,6 +126,8 @@ function selectDictionary(dict) {
     if(dict_used == dict) {
         return
     }
+    hintsUsed = 0
+    updateHintDisplay()
     dict_used = dict
     dictionaries = []
     dictionaries.length = 32;
@@ -345,6 +347,8 @@ function selectSize(size_used) {
     if(grid_size == size_used) {
         return
     }
+    hintsUsed = 0
+    updateHintDisplay()
     // Update button states
     const buttons = document.querySelectorAll('.size-button');
     buttons.forEach(btn => {
@@ -624,6 +628,8 @@ function checkWord(word) {
     if (word === targetWord) {
         // Success!
         streak++;
+        hintsUsed = 0
+        updateHintDisplay()
         updateStreak();
         successfulWords.push({ word: word, type: 'perfect' });
         updateWordHistory();
@@ -640,6 +646,8 @@ function checkWord(word) {
     else if (word.length >= targetWord.length && dictionaries[word.length].some(item => item.toLowerCase() === word.toLowerCase()) && isWordOnBoard(word)) {
         // Bonus!
         streak++;
+        hintsUsed = 0
+        updateHintDisplay()
         updateStreak();
         successfulWords.push({ word: word, type: 'bonus' });
         updateWordHistory();
@@ -836,6 +844,8 @@ function flashSuccess() {
 function skipWord() {
     if (isProcessing) return; // Prevent multiple skips
     isProcessing = true;
+    hintsUsed = 0
+    updateHintDisplay()
     
     // Add to skipped words list
     skippedWords.push(targetWord);
