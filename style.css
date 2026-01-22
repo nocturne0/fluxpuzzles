@@ -63,6 +63,7 @@ body {
 
 .sidebar:first-child {
     max-height: calc(50% - 10px);
+    position: absolute;
 }
 
 .sidebar:last-child {
